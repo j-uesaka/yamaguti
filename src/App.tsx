@@ -112,17 +112,17 @@ let sqlDatas1 =  await appsync_client.query({
   variables: {
     limit:1
   }});
-while(sqlDatas1.data.listUsers.nextToken && counts < 15){
-  let addSQL = await appsync_client.query({ 
-    query:newquery,
-    variables: {
-      limit:1,
-      nextToken:sqlDatas1.data.listUsers.nextToken
-    }})
-    sqlDatas1.data.listUsers.items = sqlDatas1.data.listUsers.items.concat(addSQL.data.listUsers.items);
-    sqlDatas1.data.listUsers.nextToken = addSQL.data.listUsers.nextToken;
-  counts += 1
-}
+// while(sqlDatas1.data.listUsers.nextToken && counts < 15){
+//   let addSQL = await appsync_client.query({ 
+//     query:newquery,
+//     variables: {
+//       limit:1,
+//       nextToken:sqlDatas1.data.listUsers.nextToken
+//     }})
+//     sqlDatas1.data.listUsers.items = sqlDatas1.data.listUsers.items.concat(addSQL.data.listUsers.items);
+//     sqlDatas1.data.listUsers.nextToken = addSQL.data.listUsers.nextToken;
+//   counts += 1
+// }
 console.log(sqlDatas1);
 // query = gql`
 //   query ListKengens {
