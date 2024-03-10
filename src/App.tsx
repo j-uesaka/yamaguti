@@ -10,10 +10,10 @@ import { ThemeProvider } from "@aws-amplify/ui-react";
 // import { Amplify } from 'aws-amplify';
 // import awsconfig from './aws-exports';
 import "@aws-amplify/ui-react/styles.css";
-import { studioTheme } from "./ui-components";
+import { studioTheme } from "./ui-components/index.js";
 import {
   DashBoard, MyReportFrame , ReportRequestFrame, NewReportFrame, NewReportRowCPCollection ,ReportRequestRowCPCollection, MyReportRowCPCollection
-} from './ui-components';
+} from './ui-components/index.js';
  import SampleRowCP from './ui-components/SampleRowCP';
  import SampleFrame from './ui-components/SampleFrame';
  import Button3 from './ui-components/Button3';
@@ -28,7 +28,7 @@ import TestCollection from './ui-components/TestCollection';
 
 //  Amplify.configure(awsconfig);
  const client = generateClient();
-console.log(process.env.REACT_APP_SAMPLE_VALUE);
+// console.log(process.env.REACT_APP_SAMPLE_VALUE);s
 
  let MyReports = await client.graphql({ query: listReports
 //   ,variables:{
@@ -73,45 +73,45 @@ console.log(process.env.REACT_APP_SAMPLE_VALUE);
 
 
 
-const appsync_client = new AWSAppSyncClient({
-  /* The HTTPS endpoint of the AWS AppSync API 
-  (e.g. *https://aaaaaaaaaaaaaaaaaaaaaaaaaa.appsync-api.us-east-1.amazonaws.com/graphql*). 
-  [Custom domain names](https://docs.aws.amazon.com/appsync/latest/devguide/custom-domain-name.html) can also be supplied here (e.g. *https://api.yourdomain.com/graphql*). 
-  Custom domain names can have any format, but must end with `/graphql` 
-  (see https://graphql.org/learn/serving-over-http/#uris-routes). */
-  url: process.env.REACT_APP_APPSYNC_aws_appsync_graphqlEndpoint,
-  region: process.env.REACT_APP_APPSYNC_aws_appsync_region,
-  auth: {
-    type: process.env.REACT_APP_APPSYNC_aws_appsync_authenticationType,
-    apiKey: process.env.REACT_APP_APPSYNC_aws_appsync_apiKey,
-    // jwtToken: async () => token, // Required when you use Cognito UserPools OR OpenID Connect. Token object is obtained previously
-    // credentials: async () => credentials, // Required when you use IAM-based auth.
-  },
-});
+// const appsync_client = new AWSAppSyncClient({
+//   /* The HTTPS endpoint of the AWS AppSync API 
+//   (e.g. *https://aaaaaaaaaaaaaaaaaaaaaaaaaa.appsync-api.us-east-1.amazonaws.com/graphql*). 
+//   [Custom domain names](https://docs.aws.amazon.com/appsync/latest/devguide/custom-domain-name.html) can also be supplied here (e.g. *https://api.yourdomain.com/graphql*). 
+//   Custom domain names can have any format, but must end with `/graphql` 
+//   (see https://graphql.org/learn/serving-over-http/#uris-routes). */
+//   url: process.env.REACT_APP_APPSYNC_aws_appsync_graphqlEndpoint,
+//   region: process.env.REACT_APP_APPSYNC_aws_appsync_region,
+//   auth: {
+//     type: process.env.REACT_APP_APPSYNC_aws_appsync_authenticationType,
+//     apiKey: process.env.REACT_APP_APPSYNC_aws_appsync_apiKey,
+//     // jwtToken: async () => token, // Required when you use Cognito UserPools OR OpenID Connect. Token object is obtained previously
+//     // credentials: async () => credentials, // Required when you use IAM-based auth.
+//   },
+// });
 
 
-let newquery = gql`
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  )  {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        kengenId
-      }
-      nextToken
-    }
-  }
-`;
-let counts = 0;
-let sqlDatas1 =  await appsync_client.query({ 
-  query:newquery,
-  variables: {
-    limit:1
-  }});
+// let newquery = gql`
+//   query ListUsers(
+//     $filter: ModelUserFilterInput
+//     $limit: Int
+//     $nextToken: String
+//   )  {
+//     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+//       items {
+//         id
+//         name
+//         kengenId
+//       }
+//       nextToken
+//     }
+//   }
+// `;
+// let counts = 0;
+// let sqlDatas1 =  await appsync_client.query({ 
+//   query:newquery,
+//   variables: {
+//     limit:1
+//   }});
 // while(sqlDatas1.data.listUsers.nextToken && counts < 15){
 //   let addSQL = await appsync_client.query({ 
 //     query:newquery,
@@ -123,7 +123,7 @@ let sqlDatas1 =  await appsync_client.query({
 //     sqlDatas1.data.listUsers.nextToken = addSQL.data.listUsers.nextToken;
 //   counts += 1
 // }
-console.log(sqlDatas1);
+// console.log(sqlDatas1);
 // query = gql`
 //   query ListKengens {
 //     listKengens {

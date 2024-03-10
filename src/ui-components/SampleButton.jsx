@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "./utils";
+import { getOverrideProps } from "./utils.js";
 import { Text, View } from "@aws-amplify/ui-react";
 export default function SampleButton(props) {
   const { overrides, ...rest } = props;
