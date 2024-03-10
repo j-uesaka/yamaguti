@@ -28,6 +28,7 @@ import TestCollection from './ui-components/TestCollection';
 
 //  Amplify.configure(awsconfig);
  const client = generateClient();
+console.log(process.env.REACT_APP_SAMPLE_VALUE);
 
  let MyReports = await client.graphql({ query: listReports
 //   ,variables:{
