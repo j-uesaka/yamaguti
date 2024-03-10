@@ -7,28 +7,29 @@ import { listReports, } from './graphql/queries';
 
 //UI関係------------------
 import { ThemeProvider } from "@aws-amplify/ui-react";
-// import { Amplify } from 'aws-amplify';
-// import awsconfig from './aws-exports';
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
 import "@aws-amplify/ui-react/styles.css";
-import { studioTheme } from "./ui-components/index.js";
+import { studioTheme } from "./ui-components";
 import {
   DashBoard, MyReportFrame , ReportRequestFrame, NewReportFrame, NewReportRowCPCollection ,ReportRequestRowCPCollection, MyReportRowCPCollection
-} from './ui-components/index.js';
+} from './ui-components';
  import SampleRowCP from './ui-components/SampleRowCP';
  import SampleFrame from './ui-components/SampleFrame';
  import Button3 from './ui-components/Button3';
  //------------------------
 
 //MySQLからのデータ取得-----
-// import AWSAppSyncClient from 'aws-appsync';
-// import gql from 'graphql-tag';
+import AWSAppSyncClient from 'aws-appsync';
+import gql from 'graphql-tag';
+import * as type from "./types";
+import { graphql } from "react-apollo";
+import MyReportRowCollection from './ui-components/MyReportRowCollection';
 import TestCollection from './ui-components/TestCollection';
-// import {AppSyncConfig} from "../.secret-mysqlAppsync"
 //-------------------------
 
-//  Amplify.configure(awsconfig);
+ Amplify.configure(awsconfig);
  const client = generateClient();
-// console.log(process.env.REACT_APP_SAMPLE_VALUE);s
 
  let MyReports = await client.graphql({ query: listReports
 //   ,variables:{
@@ -73,56 +74,7 @@ import TestCollection from './ui-components/TestCollection';
 
 
 
-// const appsync_client = new AWSAppSyncClient({
-//   /* The HTTPS endpoint of the AWS AppSync API 
-//   (e.g. *https://aaaaaaaaaaaaaaaaaaaaaaaaaa.appsync-api.us-east-1.amazonaws.com/graphql*). 
-//   [Custom domain names](https://docs.aws.amazon.com/appsync/latest/devguide/custom-domain-name.html) can also be supplied here (e.g. *https://api.yourdomain.com/graphql*). 
-//   Custom domain names can have any format, but must end with `/graphql` 
-//   (see https://graphql.org/learn/serving-over-http/#uris-routes). */
-//   url: process.env.REACT_APP_APPSYNC_aws_appsync_graphqlEndpoint,
-//   region: process.env.REACT_APP_APPSYNC_aws_appsync_region,
-//   auth: {
-//     type: process.env.REACT_APP_APPSYNC_aws_appsync_authenticationType,
-//     apiKey: process.env.REACT_APP_APPSYNC_aws_appsync_apiKey,
-//     // jwtToken: async () => token, // Required when you use Cognito UserPools OR OpenID Connect. Token object is obtained previously
-//     // credentials: async () => credentials, // Required when you use IAM-based auth.
-//   },
-// });
 
-
-// let newquery = gql`
-//   query ListUsers(
-//     $filter: ModelUserFilterInput
-//     $limit: Int
-//     $nextToken: String
-//   )  {
-//     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-//       items {
-//         id
-//         name
-//         kengenId
-//       }
-//       nextToken
-//     }
-//   }
-// `;
-// let counts = 0;
-// let sqlDatas1 =  await appsync_client.query({ 
-//   query:newquery,
-//   variables: {
-//     limit:1
-//   }});
-// while(sqlDatas1.data.listUsers.nextToken && counts < 15){
-//   let addSQL = await appsync_client.query({ 
-//     query:newquery,
-//     variables: {
-//       limit:1,
-//       nextToken:sqlDatas1.data.listUsers.nextToken
-//     }})
-//     sqlDatas1.data.listUsers.items = sqlDatas1.data.listUsers.items.concat(addSQL.data.listUsers.items);
-//     sqlDatas1.data.listUsers.nextToken = addSQL.data.listUsers.nextToken;
-//   counts += 1
-// }
 // console.log(sqlDatas1);
 // query = gql`
 //   query ListKengens {
@@ -177,9 +129,54 @@ function App() {
       <ThemeProvider theme={studioTheme}>
         <View width="100%">
           <Flex justifyContent="flex-start" marginBottom="20px"><DashBoard /></Flex>
+          <Flex wrap="wrap" gap="2rem">
 
+            <View position="relative">
+              <View><NewReportFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
+              <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
+                <ScrollView width="100%" height="170px" maxWidth="400px"><NewReportRowCPCollection /></ScrollView>
+              </View>
+            </View>
+
+            <View position="relative">
+              <View><MyReportFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
+              <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
+                <ScrollView width="100%" height="170px" maxWidth="400px"><MyReportRowCPCollection /></ScrollView>
+              </View>
+            </View>
+
+            <View position="relative">
+              <View><ReportRequestFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
+              <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
+                <ScrollView width="100%" height="170px" maxWidth="400px"><ReportRequestRowCPCollection override={{items:{MyReports}}} /></ScrollView>
+              </View>
+            </View>
+
+            <View position="relative">
+              <View><ReportRequestFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
+              <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
+              <ScrollView width="100%" height="170px" maxWidth="400px">
+                {MyReports.data.listReports.items.map((result, index) => (
+                  <View key={result.id ? result.id : index}>
+                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result.status)} title={result.report_title} presenter={result.presenter_id} date={result.date} />
+                  </View>
+                 ))}
+              </ScrollView>
+              </View>
+              <View>※これはコレクションを使わない表示</View>
+            </View>
+
+            <View position="relative">
+              <View><SampleFrame sampleRowCP={<ReportRequestRowCPCollection />} /></View>{/*ここのViewタグは必ずしも必要なし*/}
+              <View>※これは「Set an onClick action」を使ってコンポーネント内に別のコレクションを追加した表示（なぜか一つしか出ない）</View>
+              <View>あとこれだとスクロールバーの表示が上のやり方では無理</View>
+            </View>
+            
+          </Flex>
         </View>
-
+        <View><Button3 /></View>
+        <View><TestCollection /></View>
+        <View><NewReportRowCPCollection isPaginated itemsPerPage={3} /></View>
       </ThemeProvider>
     </>
   )
