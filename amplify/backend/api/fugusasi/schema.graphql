@@ -1,0 +1,41 @@
+type Comment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  commenter_id: String!
+  comment: String!
+  comment_time: AWSDateTime
+  comment_number: String
+  created_user_id: String!
+  updated_user_id: String!
+  reportID: ID! @index(name: "byReport")
+}
+
+type ReportMaster @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  type1: String!
+  type2: String
+  template_report_title: String
+  template_text: String
+  submission_department_id: ID
+  status: String!
+  created_user_id: String!
+  updated_user_id: String!
+}
+
+type Report @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  date: AWSDate
+  type1: String!
+  type2: String
+  report_title: String
+  text: String
+  submission_approver_id: [String]
+  submission_department_id: String
+  required_flag: String!
+  presenter_id: String!
+  status: String!
+  attachment: [String]
+  created_user_id: String!
+  updated_user_id: String!
+  Comments: [Comment] @hasMany(indexName: "byReport", fields: ["id"])
+}
+ 

@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fugusasi-dev-131741-authRole",
+      "UnauthRoleArn": "arn:aws:iam::533267026814:role/amplify-fugusasi-dev-131741-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::533267026814:role/amplify-fugusasi-dev-131741-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-fugusasi-dev-131741-deployment",
+      "UnauthRoleName": "amplify-fugusasi-dev-131741-unauthRole",
+      "StackName": "amplify-fugusasi-dev-131741",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:533267026814:stack/amplify-fugusasi-dev-131741/28722d70-d070-11ee-9000-06b057300083",
+      "AmplifyAppId": "d3ow6h5xn061n6"
+    },
+    "categories": {
+      "api": {
+        "fugusasi": {}
+      }
+    }
+  }
+}
