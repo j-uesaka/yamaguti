@@ -177,54 +177,9 @@ function App() {
       <ThemeProvider theme={studioTheme}>
         <View width="100%">
           <Flex justifyContent="flex-start" marginBottom="20px"><DashBoard /></Flex>
-          <Flex wrap="wrap" gap="2rem">
 
-            <View position="relative">
-              <View><NewReportFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
-              <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
-                <ScrollView width="100%" height="170px" maxWidth="400px"><NewReportRowCPCollection /></ScrollView>
-              </View>
-            </View>
-
-            <View position="relative">
-              <View><MyReportFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
-              <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
-                <ScrollView width="100%" height="170px" maxWidth="400px"><MyReportRowCPCollection /></ScrollView>
-              </View>
-            </View>
-
-            <View position="relative">
-              <View><ReportRequestFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
-              <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
-                <ScrollView width="100%" height="170px" maxWidth="400px"><ReportRequestRowCPCollection override={{items:{MyReports}}} /></ScrollView>
-              </View>
-            </View>
-
-            <View position="relative">
-              <View><ReportRequestFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
-              <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
-              <ScrollView width="100%" height="170px" maxWidth="400px">
-                {MyReports.data.listReports.items.map((result, index) => (
-                  <View key={result.id ? result.id : index}>
-                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result.status)} title={result.report_title} presenter={result.presenter_id} date={result.date} />
-                  </View>
-                 ))}
-              </ScrollView>
-              </View>
-              <View>※これはコレクションを使わない表示</View>
-            </View>
-
-            <View position="relative">
-              <View><SampleFrame sampleRowCP={<ReportRequestRowCPCollection />} /></View>{/*ここのViewタグは必ずしも必要なし*/}
-              <View>※これは「Set an onClick action」を使ってコンポーネント内に別のコレクションを追加した表示（なぜか一つしか出ない）</View>
-              <View>あとこれだとスクロールバーの表示が上のやり方では無理</View>
-            </View>
-            
-          </Flex>
         </View>
-        <View><Button3 /></View>
-        <View><TestCollection /></View>
-        <View><NewReportRowCPCollection isPaginated itemsPerPage={3} /></View>
+
       </ThemeProvider>
     </>
   )
