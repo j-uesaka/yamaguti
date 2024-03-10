@@ -20,8 +20,8 @@ import {
  //------------------------
 
 //MySQLからのデータ取得-----
-import AWSAppSyncClient from 'aws-appsync';
-import gql from 'graphql-tag';
+// import AWSAppSyncClient from 'aws-appsync';
+// import gql from 'graphql-tag';
 import TestCollection from './ui-components/TestCollection';
 // import {AppSyncConfig} from "../.secret-mysqlAppsync"
 //-------------------------
