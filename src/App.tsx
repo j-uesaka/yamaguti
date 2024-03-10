@@ -23,7 +23,7 @@ import {
 import AWSAppSyncClient from 'aws-appsync';
 import gql from 'graphql-tag';
 import TestCollection from './ui-components/TestCollection';
-import {AppSyncConfig} from "../.secret-mysqlAppsync"
+// import {AppSyncConfig} from "../.secret-mysqlAppsync"
 //-------------------------
 
 //  Amplify.configure(awsconfig);
@@ -78,11 +78,11 @@ const appsync_client = new AWSAppSyncClient({
   [Custom domain names](https://docs.aws.amazon.com/appsync/latest/devguide/custom-domain-name.html) can also be supplied here (e.g. *https://api.yourdomain.com/graphql*). 
   Custom domain names can have any format, but must end with `/graphql` 
   (see https://graphql.org/learn/serving-over-http/#uris-routes). */
-  url: AppSyncConfig.aws_appsync_graphqlEndpoint,
-  region: AppSyncConfig.aws_appsync_region,
+  url: process.env.REACT_APP_.aws_appsync_graphqlEndpoint,
+  region: process.env.REACT_APP_.aws_appsync_region,
   auth: {
-    type: AppSyncConfig.aws_appsync_authenticationType,
-    apiKey: AppSyncConfig.aws_appsync_apiKey,
+    type: process.env.REACT_APP_.aws_appsync_authenticationType,
+    apiKey: process.env.REACT_APP_.aws_appsync_apiKey,
     // jwtToken: async () => token, // Required when you use Cognito UserPools OR OpenID Connect. Token object is obtained previously
     // credentials: async () => credentials, // Required when you use IAM-based auth.
   },
