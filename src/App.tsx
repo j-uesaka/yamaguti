@@ -7,8 +7,8 @@ import { listReports, } from './graphql/queries';
 
 //UI関係------------------
 import { ThemeProvider } from "@aws-amplify/ui-react";
-import { Amplify } from 'aws-amplify';
-import awsconfig from './aws-exports';
+// import { Amplify } from 'aws-amplify';
+// import awsconfig from './aws-exports';
 import "@aws-amplify/ui-react/styles.css";
 import { studioTheme } from "./ui-components";
 import {
@@ -22,14 +22,11 @@ import {
 //MySQLからのデータ取得-----
 import AWSAppSyncClient from 'aws-appsync';
 import gql from 'graphql-tag';
-import * as type from "./types";
-import { graphql } from "react-apollo";
-import MyReportRowCollection from './ui-components/MyReportRowCollection';
 import TestCollection from './ui-components/TestCollection';
 import {AppSyncConfig} from "../.secret-mysqlAppsync"
 //-------------------------
 
- Amplify.configure(awsconfig);
+//  Amplify.configure(awsconfig);
  const client = generateClient();
 
  let MyReports = await client.graphql({ query: listReports
