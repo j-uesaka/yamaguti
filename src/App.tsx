@@ -2,7 +2,7 @@ import './App.css'
 import '@aws-amplify/ui-react/styles.css';
 import { Flex, ScrollView, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import { GraphQLResult, generateClient } from 'aws-amplify/api';
+import { generateClient } from 'aws-amplify/api';
 import { listReports, } from './graphql/queries';
 
 //UI関係------------------
@@ -19,7 +19,7 @@ import ReportRequestRowCPCollection from './ui-components/ReportRequestRowCPColl
 import MyReportRowCPCollection from './ui-components/MyReportRowCPCollection';
 import SampleRowCP from './ui-components/SampleRowCP';
 import SampleFrame from './ui-components/SampleFrame';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ListReportsQuery } from './API';
  //------------------------
 
