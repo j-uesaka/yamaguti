@@ -6,9 +6,9 @@ import { generateClient } from 'aws-amplify/api';
 import { listReports, } from './graphql/queries';
 
 //UI関係------------------
-import { ThemeProvider } from "@aws-amplify/ui-react";
-// import { Amplify } from 'aws-amplify';
-// import awsconfig from './aws-exports';
+// import { ThemeProvider } from "@aws-amplify/ui-react";
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
 import "@aws-amplify/ui-react/styles.css";
 import DashBoard from './ui-components/DashBoard';
 import MyReportFrame from './ui-components/MyReportFrame';
@@ -27,10 +27,10 @@ import SampleFrame from './ui-components/SampleFrame';
 // import * as type from "./types";
 // import { graphql } from "react-apollo";
 // import MyReportRowCollection from './ui-components/MyReportRowCollection';
-import studioTheme from './ui-components/studioTheme.js';
+// import studioTheme from './ui-components/studioTheme.js';
 //-------------------------
 
-//  Amplify.configure(awsconfig);
+ Amplify.configure(awsconfig);
  const client = generateClient();
 
  let MyReports = await client.graphql({ query: listReports
@@ -128,7 +128,6 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={studioTheme}>
         <View width="100%">
           <Flex justifyContent="flex-start" marginBottom="20px"><DashBoard /></Flex>
           <Flex wrap="wrap" gap="2rem">
@@ -176,7 +175,6 @@ function App() {
             
           </Flex>
         </View>
-      </ThemeProvider>
     </>
   )
 }
