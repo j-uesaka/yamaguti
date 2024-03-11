@@ -159,7 +159,7 @@ function App() {
               <ScrollView width="100%" height="170px" maxWidth="400px">
                 {MyReports.data.listReports.items.map((result, index) => (
                   <View key={result.id ? result.id : index}>
-                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result.status)} title={result.report_title as string} presenter={result.presenter_id} date={result.date as string} />
+                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result.status)} title={result.report_title ? result.report_title:"No Title"} presenter={result.presenter_id} date={result.date ? result.date:"No Date"} />
                   </View>
                  ))}
               </ScrollView>
