@@ -149,7 +149,7 @@ function App() {
             <View position="relative">
               <View><ReportRequestFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
               <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
-                <ScrollView width="100%" height="170px" maxWidth="400px"><ReportRequestRowCPCollection override={{items:{MyReports}}} /></ScrollView>
+                <ScrollView width="100%" height="170px" maxWidth="400px"><ReportRequestRowCPCollection overrides={{items:{MyReports}}} /></ScrollView>
               </View>
             </View>
 
@@ -159,7 +159,7 @@ function App() {
               <ScrollView width="100%" height="170px" maxWidth="400px">
                 {MyReports.data.listReports.items.map((result, index) => (
                   <View key={result.id ? result.id : index}>
-                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result.status)} title={result.report_title} presenter={result.presenter_id} date={result.date} />
+                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result.status)} title={result.report_title as string} presenter={result.presenter_id} date={result.date as string} />
                   </View>
                  ))}
               </ScrollView>
