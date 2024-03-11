@@ -7,16 +7,18 @@ import { listReports, } from './graphql/queries';
 
 //UI関係------------------
 import { ThemeProvider } from "@aws-amplify/ui-react";
-import { Amplify } from 'aws-amplify';
+// import { Amplify } from 'aws-amplify';
 // import awsconfig from './aws-exports';
 import "@aws-amplify/ui-react/styles.css";
-import { studioTheme } from "./ui-components";
-import {
-  DashBoard, MyReportFrame , ReportRequestFrame, NewReportFrame, NewReportRowCPCollection ,ReportRequestRowCPCollection, MyReportRowCPCollection
-} from './ui-components';
- import SampleRowCP from './ui-components/SampleRowCP';
- import SampleFrame from './ui-components/SampleFrame';
- import Button3 from './ui-components/Button3';
+import DashBoard from './ui-components/DashBoard';
+import MyReportFrame from './ui-components/MyReportFrame';
+import ReportRequestFrame from './ui-components/ReportRequestFrame';
+import NewReportFrame from './ui-components/NewReportFrame';
+import NewReportRowCPCollection from './ui-components/NewReportRowCPCollection';
+import ReportRequestRowCPCollection from './ui-components/ReportRequestRowCPCollection';
+import MyReportRowCPCollection from './ui-components/MyReportRowCPCollection';
+import SampleRowCP from './ui-components/SampleRowCP';
+import SampleFrame from './ui-components/SampleFrame';
  //------------------------
 
 //MySQLからのデータ取得-----
@@ -25,7 +27,7 @@ import {
 // import * as type from "./types";
 // import { graphql } from "react-apollo";
 // import MyReportRowCollection from './ui-components/MyReportRowCollection';
-import TestCollection from './ui-components/TestCollection';
+import studioTheme from './ui-components/studioTheme.js';
 //-------------------------
 
 //  Amplify.configure(awsconfig);
@@ -174,9 +176,6 @@ function App() {
             
           </Flex>
         </View>
-        <View><Button3 /></View>
-        <View><TestCollection /></View>
-        <View><NewReportRowCPCollection isPaginated itemsPerPage={3} /></View>
       </ThemeProvider>
     </>
   )
