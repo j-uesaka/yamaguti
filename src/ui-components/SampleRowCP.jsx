@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "./utils";
+import { getOverrideProps, useNavigateAction } from "./utils";
 import { Icon, Text, View } from "@aws-amplify/ui-react";
 export default function SampleRowCP(props) {
   const {
@@ -19,6 +19,13 @@ export default function SampleRowCP(props) {
     overrides,
     ...rest
   } = props;
+  const sampleRowCPOnClick = useNavigateAction({
+    type: "url",
+    url:
+      status == '"\u8A02\u6B63\u5F85\u3061","\u4E00\u6642\u4FDD\u5B58"'
+        ? '"/report-view"'
+        : '"/report-edit"',
+  });
   return (
     <View
       width="383px"
@@ -31,7 +38,9 @@ export default function SampleRowCP(props) {
       position="relative"
       border="0px SOLID rgba(169,208,142,1)"
       padding="0px 0px 0px 0px"
-      onClick={event}
+      onClick={() => {
+        sampleRowCPOnClick();
+      }}
       {...getOverrideProps(overrides, "SampleRowCP")}
       {...rest}
     >
