@@ -2,7 +2,7 @@ import './App.css'
 import '@aws-amplify/ui-react/styles.css';
 import { Flex, ScrollView, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import { generateClient } from 'aws-amplify/api';
+import { GraphQLResult, generateClient } from 'aws-amplify/api';
 import { listReports, } from './graphql/queries';
 
 //UI関係------------------
@@ -19,6 +19,7 @@ import ReportRequestRowCPCollection from './ui-components/ReportRequestRowCPColl
 import MyReportRowCPCollection from './ui-components/MyReportRowCPCollection';
 import SampleRowCP from './ui-components/SampleRowCP';
 import SampleFrame from './ui-components/SampleFrame';
+import { useState, useEffect } from 'react';
  //------------------------
 
 //MySQLからのデータ取得-----
@@ -30,20 +31,7 @@ import SampleFrame from './ui-components/SampleFrame';
 // import studioTheme from './ui-components/studioTheme.js';
 //-------------------------
 
- Amplify.configure(awsconfig);
- const client = generateClient();
 
- let MyReports = await client.graphql({ query: listReports
-//   ,variables:{
-//     limit: 50,
-//     nextToken:"eyJ2ZXJzaW9uIjozLCJ0b2tlbiI6IkFnVjRuS1ZRVTJ5cWNCRytYRkN5WlpWZjF6cnR4U1o0S21BUGxKbDFHTWdlUzJJQWV3QUNBQWRCY0hCVGVXNWpBQkZGYm1OeWVYQjBhVzl1UTI5dWRHVjRkQUFWWVhkekxXTnllWEIwYnkxd2RXSnNhV010YTJWNUFFUkJiamRMVkRaQ1NuQk1jemt2VkdsbmEzRTFjVVI1TDFwRmFHeElZVFl4YzFSR09WaFlVMGcxWkVwVVFtWnZXblJsVTBwSlFqQmpRVFYyY0UweFprNWhPWGM5UFFBQkFBZGhkM010YTIxekFGQmhjbTQ2WVhkek9tdHRjenBoY0MxdWIzSjBhR1ZoYzNRdE1Ub3pNREU1TWpBNU5EWTVNRFk2YTJWNUx6UTRNbVU1WlRNNExXVXlPR010TkdJeFlTMDVZMlprTFRaaE9XRXhZVFUxWm1ZMVpBQzRBUUlCQUhpclhZeUl6VzVma3owWXRrUlhETWFGQ2lYTlZNSURhZmRLQ04rSlFEbnlkZ0d4djlXaFlmTTVWVGcwTURXeUFQZnpBQUFBZmpCOEJna3Foa2lHOXcwQkJ3YWdiekJ0QWdFQU1HZ0dDU3FHU0liM0RRRUhBVEFlQmdsZ2hrZ0JaUU1FQVM0d0VRUU0xeEZqSkVkNURQUTZtM0dUQWdFUWdEczh1bncwQ2E0N0NyTHlHZGJIOHpNQ2ViVlUxMjV0L0xWK05uNWtkNEIvNW85eFBZZkQ4SjhZTWNGbUt0Wi82N1ZzaFRpWG5BVGZZcGxBQndJQUFCQUFEUlJWc2Q5Q3Ezd1J0M0dPUXVlKzdjRnlZTU1PUS9uejRvWTY3dm9WSkFMMElJRzhhMElHMXhEcVREczdtTTVjLy8vLy93QUFBQUVBQUFBQUFBQUFBQUFBQUFFQUFBRzQ1anRsU29DZ2w4a0xkK3NPaUhsSnNaWDJpRDBXQzg0Z3JwUzJoZVNMdHU3VjJaaUFEZVZtR1BGVEtWODVqZk1JeHlUYUkwb3ZXS0VNalhoRzdlV2VrRktkMis5SWxCZklQOHl6L1QwWWRDT2VqOEpUYjVHYWNRWHZuWXlwOUo2WXFVSHEwY28zNjMvVTRGNGhSRGdJaWpJVjlXNUwwWkViMFdiNUo5SzJkNFEvMmZtTnFBYnM2L3BHQ1FWOGdEVWdZb2IzOE1MYmlyTnU4blV6RTQ1eTEwWG85Z0hGZXhhSmJaa1RUb2Q2bHRyMWNKcTRBTjBrM0R0L0Vpb3FVeDFzeGNWTTFkYnVxL3VUeUo5ZUxlM0ZPbWNoeWV0d1ZXNmhGZENMQktGL0hJNHFQVWU5QWtwQkZqYmVuaDgvRGt4MDhvbVhNUFBROVhjRldUTmVvU2d2VXFEZFFzd0s2VHpPYzA5dERjRzdtM0NYNUQyTDBXT0xJcjk3SmQwS3cxSCtCNTBMVElOUG9jV0kydW9DZ21ubTFsMUdHWGVMMkIxQXRkZ0tyS1IzSFNZV1B5WGIwckhndXVMd2Z6bDlhY3h2YTFCMnMwdExTSm1ueDVxVk5abXhiRk84S2NnMnNiK3I2WlVuNE5xV3lwYmN6djFrM1lTamE5czdZeUJQOEgwQVBkZHYrUmJ3SmJDeUdOdVp1Y3JqTjBJanFUejYweUpjSE1vNnBVbTNMOTdDRThjSmdURTVtbDIwMzc4YUhiN2JiSVloWHc4cTF4NTFnakhYYTZwdlRqMVQyM0gvOUFyZUFHY3daUUl3YWE1ZmN5ZVlNNlN0ZWlrWTYyUGpMb05XN0t1YklWQVAvMFVPUm51WlRMQTVQeFY0WnNXM1U1RWV0Uk9DSkVOakFqRUEzZDIrWEtkZ3lCZ01Oa2hFaTRVbmlmTmJMM250bWVnOE9xOXpsQkFVcU1tNFRNeGdXSWo5Rk9yQlFWdWdOUm84In0="
-//     ,filter: {
-//     status: {
-//       eq: "3"
-//     }
-//   }
-// }
-});
 // MyReports.data.listReports.items.sort(function(a, b){
 // 	return (b.updatedAt > a.updatedAt ? 1 : -1);
 // })
@@ -123,9 +111,33 @@ function myalert(st: string) {
 //     console.log(error);
 //   });
 
+Amplify.configure(awsconfig);
+const client = generateClient();
 
 function App() {
+ // MyReports の状態とセットする関数
+ const [MyReports, setMyReports] = useState<GraphQLResult | null>(null);
 
+ // useEffect を使って非同期処理を実行
+ useEffect(() => {
+   async function fetchData() {
+     try {
+       const result = await client.graphql({
+         query: listReports
+       });
+       setMyReports(result);
+     } catch (error) {
+       console.error('Error fetching data:', error);
+     }
+   }
+
+   fetchData(); // 非同期処理を開始
+ }, []); // 空の依存配列で初回レンダリング時のみ実行
+
+ // MyReports がまだ利用可能でない場合の表示
+ if (!MyReports) {
+   return <div>Loading...</div>;
+ }
   return (
     <>
         <View width="100%">
