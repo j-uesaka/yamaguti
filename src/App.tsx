@@ -113,31 +113,34 @@ function myalert(st: string) {
 
 Amplify.configure(awsconfig);
 const client = generateClient();
+const MyReports = await client.graphql({
+  query: listReports
+});
+
+
+// async function getDataFromDynamoDB(): Promise<GraphQLResult>{
+//   const result = await client.graphql({
+//     query: listReports
+//   });
+//   return result
+// }
 
 function App() {
- // MyReports の状態とセットする関数
- const [MyReports, setMyReports] = useState<GraphQLResult | null>(null);
+//   let MyReports
+//   const fetchData = async () => {
+//     try {
+//       // MyReports に直接非同期関数の結果を代入することはできません
+//       const result = await getDataFromDynamoDB();
+//       MyReports = result; // ここで代入しても外部での使用に注意が必要です
+//       console.log(MyReports);
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   };
 
- // useEffect を使って非同期処理を実行
- useEffect(() => {
-   async function fetchData() {
-     try {
-       const result = await client.graphql({
-         query: listReports
-       });
-       setMyReports(result);
-     } catch (error) {
-       console.error('Error fetching data:', error);
-     }
-   }
-
-   fetchData(); // 非同期処理を開始
- }, []); // 空の依存配列で初回レンダリング時のみ実行
-
- // MyReports がまだ利用可能でない場合の表示
- if (!MyReports) {
-   return <div>Loading...</div>;
- }
+// useEffect(() => {
+//   fetchData(); // fetchData を非同期に呼び出す
+// }, []); // 空の依存配列で初回レンダリング時のみ実行
   return (
     <>
         <View width="100%">
