@@ -2,7 +2,7 @@ import './App.css'
 import '@aws-amplify/ui-react/styles.css';
 import { Flex, ScrollView, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import { generateClient } from 'aws-amplify/api';
+import { GraphQLResult, generateClient } from 'aws-amplify/api';
 import { listReports, } from './graphql/queries';
 
 //UI関係------------------
@@ -19,6 +19,8 @@ import ReportRequestRowCPCollection from './ui-components/ReportRequestRowCPColl
 import MyReportRowCPCollection from './ui-components/MyReportRowCPCollection';
 import SampleRowCP from './ui-components/SampleRowCP';
 import SampleFrame from './ui-components/SampleFrame';
+import { useEffect, useState } from 'react';
+import { ListReportsQuery } from './API';
  //------------------------
 
 //MySQLからのデータ取得-----
@@ -112,9 +114,7 @@ function myalert(st: string) {
 
 Amplify.configure(awsconfig);
 const client = generateClient();
-const MyReports = await client.graphql({
-  query: listReports
-});
+
 
 
 // async function getDataFromDynamoDB(): Promise<GraphQLResult>{
@@ -125,6 +125,14 @@ const MyReports = await client.graphql({
 // }
 
 function App() {
+  const [MyReports,setMyReports] = useState<ListReportsQuery>();
+  const fetchData = async () =>{
+    try{
+      const result = await client.graphql({query: listReports});
+      setMyReports(result.data);
+    } catch(error) {console.error("error messege",error)}
+  };
+  fetchData();
 //   let MyReports
 //   const fetchData = async () => {
 //     try {
@@ -171,9 +179,9 @@ function App() {
               <View><ReportRequestFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
               <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
               <ScrollView width="100%" height="170px" maxWidth="400px">
-                {MyReports.data.listReports.items.map((result, index) => (
-                  <View key={result.id ? result.id : index}>
-                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result.status)} title={result.report_title ? result.report_title:"No Title"} presenter={result.presenter_id} date={result.date ? result.date:"No Date"} />
+                {MyReports?.listReports?.items.map((result, index) => (
+                  <View key={result?.id ? result.id : index}>
+                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result ? result.status:"No Date")} title={result ? result.report_title ? result.report_title:"No Title" :"No Title"} presenter={result ? result.presenter_id :"No " } date={result ? result.date ? result.date:"No Date" :"No Date"} />
                   </View>
                  ))}
               </ScrollView>
