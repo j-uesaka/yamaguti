@@ -62,21 +62,21 @@ function myalert(st: string) {
     alert("編集画面に遷移します")
   }
 }
-type UserType = {
-  id: string;
-  name: string;
-  __typename: string;
-};
+// type UserType = {
+//   id: string;
+//   name: string;
+//   __typename: string;
+// };
 
-type ListUsersType = {
-  items: UserType[];
-  nextToken: null | string;
-  __typename: string;
-};
+// type ListUsersType = {
+//   items: UserType[];
+//   nextToken: null | string;
+//   __typename: string;
+// };
 
-type DataType = {
-  listUsers: ListUsersType;
-};
+// type DataType = {
+//   listUsers: ListUsersType;
+// };
 
 Amplify.configure(awsconfig);
 const client = generateClient();
@@ -101,7 +101,6 @@ function App() {
     fetchData();
   }, []);
   // console.log(Users?.listUsers.items[0])
-  const num = "1";
   
   return (
     <>
