@@ -19,39 +19,43 @@ import ReportRequestRowCPCollection from './ui-components/ReportRequestRowCPColl
 import MyReportRowCPCollection from './ui-components/MyReportRowCPCollection';
 import SampleRowCP from './ui-components/SampleRowCP';
 import SampleFrame from './ui-components/SampleFrame';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ListReportsQuery } from './API';
  //------------------------
 
 //MySQLからのデータ取得-----
-// import AWSAppSyncClient from 'aws-appsync';
-// import gql from 'graphql-tag';
+import AWSAppSyncClient from 'aws-appsync';
+import gql from 'graphql-tag';
 // import * as type from "./types";
 // import { graphql } from "react-apollo";
 // import MyReportRowCollection from './ui-components/MyReportRowCollection';
 // import studioTheme from './ui-components/studioTheme.js';
 //-------------------------
-// const appsync_client = new AWSAppSyncClient({
-//   url: import.meta.env.VITE_ENDPOINT,
-//   region: import.meta.env.VITE_REGION,
-//   auth: {
-//     type: import.meta.env.VITE_AUTTYPE, 
-//     apiKey: import.meta.env.VITE_APIKEY, 
-//   },
-//   disableOffline: true,
-// });
+const appsync_client = new AWSAppSyncClient({
+  url: import.meta.env.VITE_ENDPOINT,
+  region: import.meta.env.VITE_REGION,
+  auth: {
+    type: import.meta.env.VITE_AUTTYPE, 
+    apiKey: import.meta.env.VITE_APIKEY, 
+  },
+  disableOffline: true,
+});
 
-// const query = gql`
-// //   query ListUsers {
-// //     listUsers {
-// //       items {
-// //         id
-// //         name
-// //       }
-// //       nextToken
-// //     }
-// //   }
-// // `;
+let MySQLQuery = gql`
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  )   {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
+  }
+`;
 
 
 function myalert(st: string) {
@@ -62,22 +66,50 @@ function myalert(st: string) {
     alert("編集画面に遷移します")
   }
 }
+type UserType = {
+  id: string;
+  name: string;
+  __typename: string;
+};
+
+type ListUsersType = {
+  items: UserType[];
+  nextToken: null | string;
+  __typename: string;
+};
+
+type DataType = {
+  listUsers: ListUsersType;
+};
 
 Amplify.configure(awsconfig);
 const client = generateClient();
 
 function App() {
   const [MyReports,setMyReports] = useState<ListReportsQuery>();
-  // const [Users,setUsers] = useState();
-  const fetchData = async () =>{
-    try{
-      const result = await client.graphql({query: listReports});
-      setMyReports(result.data);
-    } catch(error) {console.error("error messege",error)}
-  };
-  fetchData();
+  const [Users,setUsers] =  useState<DataType>();
+  useEffect(() => {
+    const fetchData = async () =>{
+      try {
+        const result = await client.graphql({query: listReports});
+        setMyReports(result.data);
+        const data = await appsync_client.query({ query: MySQLQuery });
+        setUsers(data.data as DataType);
+        // console.log(data.data);
+        // console.log(data);console.log(Users);
+      } 
+      catch(error) {
+        console.error("error messege",error)
+      }
+    };
+    fetchData();
+  }, []);
+  // console.log(Users?.listUsers.items[0])
+  const num = "1";
+  
   return (
     <>
+    {Users?.listUsers.items.find(({ id }) => id === num)?.name}
         <View width="100%">
           <Flex justifyContent="flex-start" marginBottom="20px"><DashBoard /></Flex>
           <Flex wrap="wrap" gap="2rem">
@@ -133,8 +165,6 @@ function App() {
               <View>※これは「Set an onClick action」を使ってコンポーネント内に別のコレクションを追加した表示（なぜか一つしか出ない）</View>
               <View>あとこれだとスクロールバーの表示が上のやり方では無理</View>
             </View>
-
-            <View>{import.meta.env.VITE_ENDPOINT}</View>
             
           </Flex>
         </View>
