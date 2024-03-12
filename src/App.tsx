@@ -31,31 +31,31 @@ import gql from 'graphql-tag';
 // import MyReportRowCollection from './ui-components/MyReportRowCollection';
 // import studioTheme from './ui-components/studioTheme.js';
 //-------------------------
-const appsync_client = new AWSAppSyncClient({
-  url: import.meta.env.VITE_ENDPOINT,
-  region: import.meta.env.VITE_REGION,
-  auth: {
-    type: import.meta.env.VITE_AUTTYPE, 
-    apiKey: import.meta.env.VITE_APIKEY, 
-  },
-  disableOffline: true,
-});
+// const appsync_client = new AWSAppSyncClient({
+//   url: import.meta.env.VITE_ENDPOINT,
+//   region: import.meta.env.VITE_REGION,
+//   auth: {
+//     type: import.meta.env.VITE_AUTTYPE, 
+//     apiKey: import.meta.env.VITE_APIKEY, 
+//   },
+//   disableOffline: true,
+// });
 
-let MySQLQuery = gql`
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  )   {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-      }
-      nextToken
-    }
-  }
-`;
+// let MySQLQuery = gql`
+//   query ListUsers(
+//     $filter: ModelUserFilterInput
+//     $limit: Int
+//     $nextToken: String
+//   )   {
+//     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+//       items {
+//         id
+//         name
+//       }
+//       nextToken
+//     }
+//   }
+// `;
 
 
 function myalert(st: string) {
@@ -87,14 +87,14 @@ const client = generateClient();
 
 function App() {
   const [MyReports,setMyReports] = useState<ListReportsQuery>();
-  const [Users,setUsers] =  useState<DataType>();
+  // const [Users,setUsers] =  useState<DataType>();
   useEffect(() => {
     const fetchData = async () =>{
       try {
         const result = await client.graphql({query: listReports});
         setMyReports(result.data);
-        const data = await appsync_client.query({ query: MySQLQuery });
-        setUsers(data.data as DataType);
+        // const data = await appsync_client.query({ query: MySQLQuery });
+        // setUsers(data.data as DataType);
         // console.log(data.data);
         // console.log(data);console.log(Users);
       } 
@@ -109,7 +109,7 @@ function App() {
   
   return (
     <>
-    {Users?.listUsers.items.find(({ id }) => id === num)?.name}
+    {/* {Users?.listUsers.items.find(({ id }) => id === num)?.name} */}
         <View width="100%">
           <Flex justifyContent="flex-start" marginBottom="20px"><DashBoard /></Flex>
           <Flex wrap="wrap" gap="2rem">
