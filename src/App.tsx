@@ -24,12 +24,8 @@ import { ListReportsQuery } from './API';
  //------------------------
 
 //MySQLからのデータ取得-----
-import AWSAppSyncClient from 'aws-appsync';
-import gql from 'graphql-tag';
-// import * as type from "./types";
-// import { graphql } from "react-apollo";
-// import MyReportRowCollection from './ui-components/MyReportRowCollection';
-// import studioTheme from './ui-components/studioTheme.js';
+// import AWSAppSyncClient from 'aws-appsync';
+// import gql from 'graphql-tag';
 //-------------------------
 // const appsync_client = new AWSAppSyncClient({
 //   url: import.meta.env.VITE_ENDPOINT,
