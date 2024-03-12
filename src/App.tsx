@@ -62,21 +62,7 @@ function myalert(st: string) {
     alert("編集画面に遷移します")
   }
 }
-type UserType = {
-  id: string;
-  name: string;
-  __typename: string;
-};
 
-type ListUsersType = {
-  items: UserType[];
-  nextToken: null | string;
-  __typename: string;
-};
-
-type DataType = {
-  listUsers: ListUsersType;
-};
 
 Amplify.configure(awsconfig);
 const client = generateClient();
@@ -91,8 +77,6 @@ function App() {
         setMyReports(result.data);
         const data = await appsync_client.query({ query: MySQLQuery });
         setUsers(data.data as DataType);
-        // console.log(data.data);
-        // console.log(data);console.log(Users);
       } 
       catch(error) {
         console.error("error messege",error)
@@ -104,7 +88,6 @@ function App() {
   
   return (
     <>
-    {/* {Users?.listUsers.items.find(({ id }) => id === num)?.name} */}
         <View width="100%">
           <Flex justifyContent="flex-start" marginBottom="20px"><DashBoard /></Flex>
           <Flex wrap="wrap" gap="2rem">
