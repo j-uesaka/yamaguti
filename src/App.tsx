@@ -31,56 +31,28 @@ import { ListReportsQuery } from './API';
 // import MyReportRowCollection from './ui-components/MyReportRowCollection';
 // import studioTheme from './ui-components/studioTheme.js';
 //-------------------------
+// const appsync_client = new AWSAppSyncClient({
+//   url: import.meta.env.VITE_ENDPOINT,
+//   region: import.meta.env.VITE_REGION,
+//   auth: {
+//     type: import.meta.env.VITE_AUTTYPE, 
+//     apiKey: import.meta.env.VITE_APIKEY, 
+//   },
+//   disableOffline: true,
+// });
 
+// const query = gql`
+// //   query ListUsers {
+// //     listUsers {
+// //       items {
+// //         id
+// //         name
+// //       }
+// //       nextToken
+// //     }
+// //   }
+// // `;
 
-// MyReports.data.listReports.items.sort(function(a, b){
-// 	return (b.updatedAt > a.updatedAt ? 1 : -1);
-// })
-// console.log(MyReports);
-// let MyReports = await client.graphql({ query: listReports
-//   ,variables:{
-//     limit: 1,
-//   //   filter: {
-//   //   status: {
-//   //     eq: "3"
-//   //   }
-//   // }
-// }});
-// let time1 = MyReports;
-// console.log(time1);
-// // console.log(MyReports.data.listReports.nextToken);
-// let count = 0;
-// while(MyReports.data.listReports.nextToken && count < 3){
-//     let addData = await client.graphql({ query: listReports
-//       ,variables:{
-//         limit: 1,
-//         nextToken: MyReports.data.listReports.nextToken,
-//     }});
-//     MyReports.data.listReports.items = MyReports.data.listReports.items.concat(addData.data.listReports.items);
-//     MyReports.data.listReports.nextToken = addData.data.listReports.nextToken;
-//     count += 1
-//   }
-//   console.log(count)
-// console.log(MyReports);
-
-
-
-
-// console.log(sqlDatas1);
-// query = gql`
-//   query ListKengens {
-//     listKengens {
-//       items {
-//         id
-//         kengenName
-//       }
-//       nextToken
-//     }
-//   }
-// `;
-// const sqlDatas2 =  await appsync_client.query({ query })
-// console.log(sqlDatas2);
-// console.log(sqlDatas2.data.listKengens.items.find(({kengenName}) => kengenName === "Syacho"));
 
 function myalert(st: string) {
   alert("ステータスは"+st+"です")
@@ -91,41 +63,12 @@ function myalert(st: string) {
   }
 }
 
-// usersとkengensを結合
-// const combinedData = sqlDatas1.data.listUsers.items.map(user => {
-//   const kengen = sqlDatas2.data.listKengens.items.find(({id}) => id === user.kengenId);
-//   console.log(kengen);
-//   return {
-//     ...user,
-//     kengen_name: kengen ? kengen.kengen_name : 'N/A'
-//   };
-// });
-// console.log(combinedData);
-
-
-// const mysqlData = await appsync_client.query<type.ListIngredientsQuery>({ query })
-//   .then(response => {
-//     console.log(response.data.listIngredients?.items[0]);
-//     return response.data.listIngredients?.items[0]
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
-
 Amplify.configure(awsconfig);
 const client = generateClient();
 
-
-
-// async function getDataFromDynamoDB(): Promise<GraphQLResult>{
-//   const result = await client.graphql({
-//     query: listReports
-//   });
-//   return result
-// }
-
 function App() {
   const [MyReports,setMyReports] = useState<ListReportsQuery>();
+  // const [Users,setUsers] = useState();
   const fetchData = async () =>{
     try{
       const result = await client.graphql({query: listReports});
@@ -133,21 +76,6 @@ function App() {
     } catch(error) {console.error("error messege",error)}
   };
   fetchData();
-//   let MyReports
-//   const fetchData = async () => {
-//     try {
-//       // MyReports に直接非同期関数の結果を代入することはできません
-//       const result = await getDataFromDynamoDB();
-//       MyReports = result; // ここで代入しても外部での使用に注意が必要です
-//       console.log(MyReports);
-//     } catch (error) {
-//       console.error('Error fetching data:', error);
-//     }
-//   };
-
-// useEffect(() => {
-//   fetchData(); // fetchData を非同期に呼び出す
-// }, []); // 空の依存配列で初回レンダリング時のみ実行
   return (
     <>
         <View width="100%">
@@ -184,6 +112,17 @@ function App() {
                     <SampleRowCP marginBottom={"15px"} event={() => myalert(result ? result.status:"No Date")} title={result ? result.report_title ? result.report_title:"No Title" :"No Title"} presenter={result ? result.presenter_id :"No " } date={result ? result.date ? result.date:"No Date" :"No Date"} />
                   </View>
                  ))}
+                 {/* {MyReports?.listReports?.items.map((result, index) => (
+  <View key={result?.id || index}>
+    <SampleRowCP
+      marginBottom="15px"
+      event={() => myalert(result?.status || "No Date")}
+      title={result?.report_title || "No Title"}
+      presenter={result?.presenter_id || "No"}
+      date={result?.date || "No Date"}
+    />
+  </View>
+))} */}
               </ScrollView>
               </View>
               <View>※これはコレクションを使わない表示</View>
@@ -194,6 +133,8 @@ function App() {
               <View>※これは「Set an onClick action」を使ってコンポーネント内に別のコレクションを追加した表示（なぜか一つしか出ない）</View>
               <View>あとこれだとスクロールバーの表示が上のやり方では無理</View>
             </View>
+
+            <View>{import.meta.env.VITE_ENDPOINT}</View>
             
           </Flex>
         </View>
