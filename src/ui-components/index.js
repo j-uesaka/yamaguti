@@ -29,4 +29,6 @@ export { default as ReportUpdateForm } from "./ReportUpdateForm";
 export { default as SampleFrame } from "./SampleFrame";
 export { default as SampleRowCP } from "./SampleRowCP";
 export { default as TestCollection } from "./TestCollection";
+export { default as UserCreateForm } from "./UserCreateForm";
+export { default as UserUpdateForm } from "./UserUpdateForm";
 export { default as studioTheme } from "./studioTheme";

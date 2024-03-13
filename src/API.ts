@@ -252,6 +252,40 @@ export type DeleteReportInput = {
   id: string,
 };
 
+export type CreateUserInput = {
+  id?: string | null,
+  name: string,
+  kengenId: string,
+};
+
+export type ModelUserConditionInput = {
+  id?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  kengenId?: ModelStringInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
+};
+
+export type User = {
+  __typename: "User",
+  id: string,
+  name: string,
+  kengenId: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateUserInput = {
+  id: string,
+  name?: string | null,
+  kengenId?: string | null,
+};
+
+export type DeleteUserInput = {
+  id: string,
+};
+
 export type ModelCommentFilterInput = {
   id?: ModelIDInput | null,
   commenter_id?: ModelStringInput | null,
@@ -316,6 +350,21 @@ export type ModelReportFilterInput = {
 export type ModelReportConnection = {
   __typename: "ModelReportConnection",
   items:  Array<Report | null >,
+  nextToken?: string | null,
+};
+
+export type ModelUserFilterInput = {
+  id?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  kengenId?: ModelStringInput | null,
+  and?: Array< ModelUserFilterInput | null > | null,
+  or?: Array< ModelUserFilterInput | null > | null,
+  not?: ModelUserFilterInput | null,
+};
+
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User | null >,
   nextToken?: string | null,
 };
 
@@ -393,6 +442,14 @@ export type ModelSubscriptionReportFilterInput = {
   updated_user_id?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionReportFilterInput | null > | null,
   or?: Array< ModelSubscriptionReportFilterInput | null > | null,
+};
+
+export type ModelSubscriptionUserFilterInput = {
+  id?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  kengenId?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
 
 export type CreateCommentMutationVariables = {
@@ -617,6 +674,54 @@ export type DeleteReportMutation = {
   } | null,
 };
 
+export type CreateUserMutationVariables = {
+  input: CreateUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type CreateUserMutation = {
+  createUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    kengenId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateUserMutationVariables = {
+  input: UpdateUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type UpdateUserMutation = {
+  updateUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    kengenId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteUserMutationVariables = {
+  input: DeleteUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type DeleteUserMutation = {
+  deleteUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    kengenId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetCommentQueryVariables = {
   id: string,
 };
@@ -794,6 +899,42 @@ export type ListReportsQuery = {
       attachment?: Array< string | null > | null,
       created_user_id: string,
       updated_user_id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetUserQueryVariables = {
+  id: string,
+};
+
+export type GetUserQuery = {
+  getUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    kengenId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListUsersQueryVariables = {
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUsersQuery = {
+  listUsers?:  {
+    __typename: "ModelUserConnection",
+    items:  Array< {
+      __typename: "User",
+      id: string,
+      name: string,
+      kengenId: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1009,6 +1150,51 @@ export type OnDeleteReportSubscription = {
       __typename: "ModelCommentConnection",
       nextToken?: string | null,
     } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
+};
+
+export type OnCreateUserSubscription = {
+  onCreateUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    kengenId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
+};
+
+export type OnUpdateUserSubscription = {
+  onUpdateUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    kengenId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
+};
+
+export type OnDeleteUserSubscription = {
+  onDeleteUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    kengenId: string,
     createdAt: string,
     updatedAt: string,
   } | null,
