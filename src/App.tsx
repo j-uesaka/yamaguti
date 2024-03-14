@@ -24,38 +24,35 @@ import { ListReportsQuery } from './API';
  //------------------------
 
 //MySQLからのデータ取得-----
-import AWSAppSyncClient from 'aws-appsync';
-import gql from 'graphql-tag';
-import { FaBeer } from 'react-icons/fa';
-import { FaBeerMugEmpty } from 'react-icons/fa6';
-import { ACTION_DATASTORE_UPDATE } from './ui-components/utils';
+// import AWSAppSyncClient from 'aws-appsync';
+// import gql from 'graphql-tag';
 import { AiFillApi } from 'react-icons/ai';
 //-------------------------
-const appsync_client = new AWSAppSyncClient({
-  url: import.meta.env.VITE_ENDPOINT,
-  region: import.meta.env.VITE_REGION,
-  auth: {
-    type: import.meta.env.VITE_AUTTYPE, 
-    apiKey: import.meta.env.VITE_APIKEY, 
-  },
-  disableOffline: true,
-});
+// const appsync_client = new AWSAppSyncClient({
+//   url: import.meta.env.VITE_ENDPOINT,
+//   region: import.meta.env.VITE_REGION,
+//   auth: {
+//     type: import.meta.env.VITE_AUTTYPE, 
+//     apiKey: import.meta.env.VITE_APIKEY, 
+//   },
+//   disableOffline: true,
+// });
 
-let MySQLQuery = gql`
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  )   {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-      }
-      nextToken
-    }
-  }
-`;
+// let MySQLQuery = gql`
+//   query ListUsers(
+//     $filter: ModelUserFilterInput
+//     $limit: Int
+//     $nextToken: String
+//   )   {
+//     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+//       items {
+//         id
+//         name
+//       }
+//       nextToken
+//     }
+//   }
+// `;
 
 
 function myalert(st: string) {
@@ -73,14 +70,14 @@ const client = generateClient();
 
 function App() {
   const [MyReports,setMyReports] = useState<ListReportsQuery>();
-  const [Users,setUsers] =  useState<DataType>();
+  // const [Users,setUsers] =  useState<DataType>();
   useEffect(() => {
     const fetchData = async () =>{
       try {
         const result = await client.graphql({query: listReports});
         setMyReports(result.data);
-        const data = await appsync_client.query({ query: MySQLQuery });
-        setUsers(data.data as DataType);
+        // const data = await appsync_client.query({ query: MySQLQuery });
+        // setUsers(data.data as DataType);
       } 
       catch(error) {
         console.error("error messege",error)
@@ -88,7 +85,7 @@ function App() {
     };
     fetchData();
   }, []);
-  console.log(Users?.listUsers.items[0])
+  // console.log(Users?.listUsers.items[0])
   
   return (
     <>
@@ -147,6 +144,11 @@ function App() {
               <View>※これは「Set an onClick action」を使ってコンポーネント内に別のコレクションを追加した表示（なぜか一つしか出ない）</View>
               <View>あとこれだとスクロールバーの表示が上のやり方では無理</View>
             </View>
+
+            <View>{import.meta.env.VITE_ENDPOINT}</View>
+            <View>{import.meta.env.VITE_REGION}</View>
+            <View>{import.meta.env.VITE_AUTTYPE}</View>
+            <View>{import.meta.env.VITE_APIKEY}</View>
             
           </Flex>
         </View>
