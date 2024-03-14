@@ -27,6 +27,9 @@ import { ListReportsQuery } from './API';
 import AWSAppSyncClient from 'aws-appsync';
 import gql from 'graphql-tag';
 import { FaBeer } from 'react-icons/fa';
+import { FaBeerMugEmpty } from 'react-icons/fa6';
+import { ACTION_DATASTORE_UPDATE } from './ui-components/utils';
+import { AiFillApi } from 'react-icons/ai';
 //-------------------------
 const appsync_client = new AWSAppSyncClient({
   url: import.meta.env.VITE_ENDPOINT,
@@ -108,7 +111,7 @@ function App() {
             </View>
 
             <View position="relative">
-              <View><ReportRequestFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
+              <View><ReportRequestFrame ue={<AiFillApi/>} /></View>{/*ここのViewタグは必ずしも必要なし*/}
               <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
                 <ScrollView width="100%" height="170px" maxWidth="400px"><ReportRequestRowCPCollection overrides={{items:{MyReports}}} /></ScrollView>
               </View>
@@ -120,7 +123,7 @@ function App() {
               <ScrollView width="100%" height="170px" maxWidth="400px">
                 {MyReports?.listReports?.items.map((result, index) => (
                   <View key={result?.id ? result.id : index}>
-                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result ? result.status:"No Date")} title={result ? result.report_title ? result.report_title:"No Title" :"No Title"} presenter={result ? result.presenter_id :"No " } date={<FaBeer />} />
+                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result ? result.status:"No Date")} title={result ? result.report_title ? result.report_title:"No Title" :"No Title"} presenter={result ? result.presenter_id :"No " } />
                   </View>
                  ))}
                  {/* {MyReports?.listReports?.items.map((result, index) => (

@@ -9,7 +9,7 @@ import * as React from "react";
 import { getOverrideProps } from "./utils";
 import { Icon, Text, View } from "@aws-amplify/ui-react";
 export default function ReportRequestFrame(props) {
-  const { overrides, ...rest } = props;
+  const { ue, overrides, ...rest } = props;
   return (
     <View
       width="440px"
@@ -102,7 +102,7 @@ export default function ReportRequestFrame(props) {
           left="290px"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="実施日"
+          children={ue}
           {...getOverrideProps(overrides, "Date")}
         ></Text>
         <Text

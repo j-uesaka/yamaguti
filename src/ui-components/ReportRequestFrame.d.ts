@@ -28,6 +28,8 @@ export declare type ReportRequestFrameOverridesProps = {
     "OutLine (Stroke)"?: PrimitiveOverrideProps<IconProps>;
 } & EscapeHatchProps;
 export declare type ReportRequestFrameProps = React.PropsWithChildren<Partial<ViewProps> & {
+    ue?: React.ReactNode;
+} & {
     overrides?: ReportRequestFrameOverridesProps | undefined | null;
 }>;
 export default function ReportRequestFrame(props: ReportRequestFrameProps): React.ReactElement;
