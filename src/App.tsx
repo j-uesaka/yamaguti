@@ -26,6 +26,7 @@ import { ListReportsQuery } from './API';
 //MySQLからのデータ取得-----
 import AWSAppSyncClient from 'aws-appsync';
 import gql from 'graphql-tag';
+import { FaBeer } from 'react-icons/fa';
 //-------------------------
 const appsync_client = new AWSAppSyncClient({
   url: import.meta.env.VITE_ENDPOINT,
@@ -119,7 +120,7 @@ function App() {
               <ScrollView width="100%" height="170px" maxWidth="400px">
                 {MyReports?.listReports?.items.map((result, index) => (
                   <View key={result?.id ? result.id : index}>
-                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result ? result.status:"No Date")} title={result ? result.report_title ? result.report_title:"No Title" :"No Title"} presenter={result ? result.presenter_id :"No " } date={result ? result.date ? result.date:"No Date" :"No Date"} />
+                    <SampleRowCP marginBottom={"15px"} event={() => myalert(result ? result.status:"No Date")} title={result ? result.report_title ? result.report_title:"No Title" :"No Title"} presenter={result ? result.presenter_id :"No " } date={<FaBeer />} />
                   </View>
                  ))}
                  {/* {MyReports?.listReports?.items.map((result, index) => (
