@@ -144,11 +144,6 @@ function App() {
               <View>※これは「Set an onClick action」を使ってコンポーネント内に別のコレクションを追加した表示（なぜか一つしか出ない）</View>
               <View>あとこれだとスクロールバーの表示が上のやり方では無理</View>
             </View>
-
-            <View>{import.meta.env.VITE_ENDPOINT}</View>
-            <View>{import.meta.env.VITE_REGION}</View>
-            <View>{import.meta.env.VITE_AUTTYPE}</View>
-            <View>{import.meta.env.VITE_APIKEY}</View>
             
           </Flex>
         </View>
