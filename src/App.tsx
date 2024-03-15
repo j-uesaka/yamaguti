@@ -7,8 +7,8 @@ import { listReports, } from './graphql/queries';
 
 //UI関係------------------
 // import { ThemeProvider } from "@aws-amplify/ui-react";
-import { Amplify } from 'aws-amplify';
-import awsconfig from './aws-exports';
+// import { Amplify } from 'aws-amplify';
+// import awsconfig from './aws-exports';
 import "@aws-amplify/ui-react/styles.css";
 import DashBoard from './ui-components/DashBoard';
 import MyReportFrame from './ui-components/MyReportFrame';
@@ -65,7 +65,7 @@ function myalert(st: string) {
 }
 
 
-Amplify.configure(awsconfig);
+// Amplify.configure(awsconfig);
 const client = generateClient();
 
 function App() {
