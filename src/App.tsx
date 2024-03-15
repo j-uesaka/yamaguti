@@ -78,6 +78,15 @@ function App() {
         setMyReports(result.data);
         const data = await appsync_client.query({ query: MySQLQuery });
         setUsers(data.data as DataType);
+        while(data.data.listMUsers.nextToken){
+          let addSQL = await appsync_client.query({ 
+            query:MySQLQuery,
+            variables: {
+              nextToken:data.data.listMUsers.nextToken
+            }})
+            data.data.listMUsers.items = data.data.listMUsers.items.concat(addSQL.data.listMUsers.items);
+            data.data.listMUsers.nextToken = addSQL.data.listMUsers.nextToken;
+        }
       } 
       catch(error) {
         console.error("error messege",error)
