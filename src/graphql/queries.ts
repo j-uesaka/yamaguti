@@ -8,6 +8,14 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const handler = /* GraphQL */ `query Handler {
+  handler {
+    id
+    name
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.HandlerQueryVariables, APITypes.HandlerQuery>;
 export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
   getComment(id: $id) {
     id

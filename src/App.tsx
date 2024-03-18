@@ -3,7 +3,7 @@ import '@aws-amplify/ui-react/styles.css';
 import { Flex, ScrollView, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { generateClient } from 'aws-amplify/api';
-import { listReports, } from './graphql/queries';
+import { handler, } from './graphql/queries';
 
 //UI関係------------------
 // import { ThemeProvider } from "@aws-amplify/ui-react";
@@ -17,76 +17,78 @@ import NewReportFrame from './ui-components/NewReportFrame';
 import NewReportRowCPCollection from './ui-components/NewReportRowCPCollection';
 import ReportRequestRowCPCollection from './ui-components/ReportRequestRowCPCollection';
 import MyReportRowCPCollection from './ui-components/MyReportRowCPCollection';
-import SampleRowCP from './ui-components/SampleRowCP';
 import SampleFrame from './ui-components/SampleFrame';
 import { useEffect, useState } from 'react';
-import { ListReportsQuery } from './API';
+import { User } from './API';
  //------------------------
 
 //MySQLからのデータ取得-----
-import AWSAppSyncClient from 'aws-appsync';
-import gql from 'graphql-tag';
+// import AWSAppSyncClient from 'aws-appsync';
+// import gql from 'graphql-tag';
 import { AiFillApi } from 'react-icons/ai';
 //-------------------------
-const appsync_client = new AWSAppSyncClient({
-  url: import.meta.env.VITE_ENDPOINT,
-  region: import.meta.env.VITE_REGION,
-  auth: {
-    type: import.meta.env.VITE_AUTTYPE, 
-    apiKey: import.meta.env.VITE_APIKEY, 
-  },
-  disableOffline: true,
-});
+// const appsync_client = new AWSAppSyncClient({
+//   url: import.meta.env.VITE_ENDPOINT,
+//   region: import.meta.env.VITE_REGION,
+//   auth: {
+//     type: import.meta.env.VITE_AUTTYPE, 
+//     apiKey: import.meta.env.VITE_APIKEY, 
+//   },
+//   disableOffline: true,
+// });
 
-let MySQLQuery = gql`
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  )   {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-      }
-      nextToken
-    }
-  }
-`;
-
-
-function myalert(st: string) {
-  alert("ステータスは"+st+"です")
-  if(st == "3"){
-    alert("閲覧画面に遷移します")
-  } else {
-    alert("編集画面に遷移します")
-  }
-}
+// let MySQLQuery = gql`
+//   query ListUsers(
+//     $filter: ModelUserFilterInput
+//     $limit: Int
+//     $nextToken: String
+//   )   {
+//     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+//       items {
+//         id
+//         name
+//       }
+//       nextToken
+//     }
+//   }
+// `;
 
 
-// Amplify.configure(awsconfig);
+// function myalert(st: string) {
+//   alert("ステータスは"+st+"です")
+//   if(st == "3"){
+//     alert("閲覧画面に遷移します")
+//   } else {
+//     alert("編集画面に遷移します")
+//   }
+// }
+
+
+
+//  Amplify.configure(awsconfig);
 const client = generateClient();
 
 function App() {
-  const [MyReports,setMyReports] = useState<ListReportsQuery>();
-  const [Users,setUsers] =  useState<DataType>();
+  const [MyReports,setMyReports] = useState<Array<User>>();
+  // const [Users,setUsers] =  useState<DataType>();
   useEffect(() => {
     const fetchData = async () =>{
       try {
-        const result = await client.graphql({query: listReports});
-        setMyReports(result.data);
-        const data = await appsync_client.query({ query: MySQLQuery });
-        setUsers(data.data as DataType);
-        while(data.data.listMUsers.nextToken){
-          let addSQL = await appsync_client.query({ 
-            query:MySQLQuery,
-            variables: {
-              nextToken:data.data.listMUsers.nextToken
-            }})
-            data.data.listMUsers.items = data.data.listMUsers.items.concat(addSQL.data.listMUsers.items);
-            data.data.listMUsers.nextToken = addSQL.data.listMUsers.nextToken;
-        }
+        const result = await client.graphql({query: handler});
+        console.log(Array.isArray(result.data.handler))
+        
+        setMyReports(result.data.handler as Array<User>);
+        // let data = await appsync_client.query({ query: MySQLQuery });
+        // setUsers(data.data as DataType);
+        // while(data.data.listMUsers.nextToken){
+        //   let addSQL = await appsync_client.query({ 
+        //     query:MySQLQuery,
+        //     variables: {
+        //       nextToken:data.data.listMUsers.nextToken
+        //     }})
+        //     data.data.listMUsers.items = data.data.listMUsers.items.concat(addSQL.data.listMUsers.items);
+        //     data.data.listMUsers.nextToken = addSQL.data.listMUsers.nextToken;
+        // }
       } 
       catch(error) {
         console.error("error messege",error)
@@ -94,7 +96,7 @@ function App() {
     };
     fetchData();
   }, []);
-  console.log(Users?.listUsers.items[0])
+  // console.log(Users?.listUsers.items[0])
   
   return (
     <>
@@ -123,15 +125,20 @@ function App() {
               </View>
             </View>
 
+            {Array.isArray(MyReports) && MyReports.map((item,index) => (
+              <View key={index} >{item.name}</View>
+))}
+
+
             <View position="relative">
               <View><ReportRequestFrame /></View>{/*ここのViewタグは必ずしも必要なし*/}
               <View position="absolute" top="117px" left="27px">{/*ここのViewタグは必ずしも必要なし、ScrollViewタグにポジション等を入れてもよい*/}
               <ScrollView width="100%" height="170px" maxWidth="400px">
-                {MyReports?.listReports?.items.map((result, index) => (
+                {/* {MyReports?.listReports?.items.map((result, index) => (
                   <View key={result?.id ? result.id : index}>
                     <SampleRowCP marginBottom={"15px"} event={() => myalert(result ? result.status:"No Date")} title={result ? result.report_title ? result.report_title:"No Title" :"No Title"} presenter={result ? result.presenter_id :"No " } />
                   </View>
-                 ))}
+                 ))} */}
                  {/* {MyReports?.listReports?.items.map((result, index) => (
   <View key={result?.id || index}>
     <SampleRowCP

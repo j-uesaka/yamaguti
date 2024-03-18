@@ -254,8 +254,8 @@ export type DeleteReportInput = {
 
 export type CreateUserInput = {
   id?: string | null,
-  name: string,
-  kengenId: string,
+  name?: string | null,
+  kengenId?: string | null,
 };
 
 export type ModelUserConditionInput = {
@@ -269,9 +269,9 @@ export type ModelUserConditionInput = {
 
 export type User = {
   __typename: "User",
-  id: string,
-  name: string,
-  kengenId: string,
+  id?: string | null,
+  name?: string | null,
+  kengenId?: string | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -682,9 +682,9 @@ export type CreateUserMutationVariables = {
 export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
-    id: string,
-    name: string,
-    kengenId: string,
+    id?: string | null,
+    name?: string | null,
+    kengenId?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -698,9 +698,9 @@ export type UpdateUserMutationVariables = {
 export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
-    id: string,
-    name: string,
-    kengenId: string,
+    id?: string | null,
+    name?: string | null,
+    kengenId?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -714,12 +714,26 @@ export type DeleteUserMutationVariables = {
 export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
-    id: string,
-    name: string,
-    kengenId: string,
+    id?: string | null,
+    name?: string | null,
+    kengenId?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type HandlerQueryVariables = {
+};
+
+export type HandlerQuery = {
+  handler?:  Array< {
+    __typename: "User",
+    id?: string | null,
+    name?: string | null,
+    kengenId?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null > | null,
 };
 
 export type GetCommentQueryVariables = {
@@ -913,9 +927,9 @@ export type GetUserQueryVariables = {
 export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
-    id: string,
-    name: string,
-    kengenId: string,
+    id?: string | null,
+    name?: string | null,
+    kengenId?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -932,9 +946,9 @@ export type ListUsersQuery = {
     __typename: "ModelUserConnection",
     items:  Array< {
       __typename: "User",
-      id: string,
-      name: string,
-      kengenId: string,
+      id?: string | null,
+      name?: string | null,
+      kengenId?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1162,9 +1176,9 @@ export type OnCreateUserSubscriptionVariables = {
 export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
-    id: string,
-    name: string,
-    kengenId: string,
+    id?: string | null,
+    name?: string | null,
+    kengenId?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1177,9 +1191,9 @@ export type OnUpdateUserSubscriptionVariables = {
 export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
-    id: string,
-    name: string,
-    kengenId: string,
+    id?: string | null,
+    name?: string | null,
+    kengenId?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1192,9 +1206,9 @@ export type OnDeleteUserSubscriptionVariables = {
 export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
-    id: string,
-    name: string,
-    kengenId: string,
+    id?: string | null,
+    name?: string | null,
+    kengenId?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,

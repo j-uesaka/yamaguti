@@ -60,8 +60,8 @@ export default function UserUpdateForm(props) {
   React.useEffect(resetStateValues, [userRecord]);
   const validations = {
     id: [{ type: "Required" }],
-    name: [{ type: "Required" }],
-    kengenId: [{ type: "Required" }],
+    name: [],
+    kengenId: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -90,8 +90,8 @@ export default function UserUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           id,
-          name,
-          kengenId,
+          name: name ?? null,
+          kengenId: kengenId ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -171,7 +171,7 @@ export default function UserUpdateForm(props) {
       ></TextField>
       <TextField
         label="Name"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={name}
         onChange={(e) => {
@@ -197,7 +197,7 @@ export default function UserUpdateForm(props) {
       ></TextField>
       <TextField
         label="Kengen id"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={kengenId}
         onChange={(e) => {
