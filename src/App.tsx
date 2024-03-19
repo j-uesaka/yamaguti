@@ -67,7 +67,6 @@ import { AiFillApi } from 'react-icons/ai';
 
 //  Amplify.configure(awsconfig);
 const client = generateClient();
-const aaa = 111;
 function App() {
   const [MyReports,setMyReports] = useState<Array<User>>();
   // const [Users,setUsers] =  useState<DataType>();
