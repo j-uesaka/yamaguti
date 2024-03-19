@@ -255,13 +255,12 @@ export type DeleteReportInput = {
 export type CreateUserInput = {
   id?: string | null,
   name?: string | null,
-  kengenId?: string | null,
+  kengen_id?: string | null,
 };
 
 export type ModelUserConditionInput = {
-  id?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  kengenId?: ModelStringInput | null,
+  kengen_id?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
@@ -269,9 +268,9 @@ export type ModelUserConditionInput = {
 
 export type User = {
   __typename: "User",
-  id?: string | null,
+  id: string,
   name?: string | null,
-  kengenId?: string | null,
+  kengen_id?: string | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -279,7 +278,7 @@ export type User = {
 export type UpdateUserInput = {
   id: string,
   name?: string | null,
-  kengenId?: string | null,
+  kengen_id?: string | null,
 };
 
 export type DeleteUserInput = {
@@ -356,7 +355,7 @@ export type ModelReportConnection = {
 export type ModelUserFilterInput = {
   id?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  kengenId?: ModelStringInput | null,
+  kengen_id?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -447,7 +446,7 @@ export type ModelSubscriptionReportFilterInput = {
 export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionStringInput | null,
   name?: ModelSubscriptionStringInput | null,
-  kengenId?: ModelSubscriptionStringInput | null,
+  kengen_id?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
@@ -682,9 +681,9 @@ export type CreateUserMutationVariables = {
 export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
-    id?: string | null,
+    id: string,
     name?: string | null,
-    kengenId?: string | null,
+    kengen_id?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -698,9 +697,9 @@ export type UpdateUserMutationVariables = {
 export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
-    id?: string | null,
+    id: string,
     name?: string | null,
-    kengenId?: string | null,
+    kengen_id?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -714,9 +713,9 @@ export type DeleteUserMutationVariables = {
 export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
-    id?: string | null,
+    id: string,
     name?: string | null,
-    kengenId?: string | null,
+    kengen_id?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -728,9 +727,9 @@ export type HandlerQueryVariables = {
 export type HandlerQuery = {
   handler?:  Array< {
     __typename: "User",
-    id?: string | null,
+    id: string,
     name?: string | null,
-    kengenId?: string | null,
+    kengen_id?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null > | null,
@@ -927,18 +926,20 @@ export type GetUserQueryVariables = {
 export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
-    id?: string | null,
+    id: string,
     name?: string | null,
-    kengenId?: string | null,
+    kengen_id?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
 export type ListUsersQueryVariables = {
+  id?: string | null,
   filter?: ModelUserFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListUsersQuery = {
@@ -946,9 +947,9 @@ export type ListUsersQuery = {
     __typename: "ModelUserConnection",
     items:  Array< {
       __typename: "User",
-      id?: string | null,
+      id: string,
       name?: string | null,
-      kengenId?: string | null,
+      kengen_id?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1176,9 +1177,9 @@ export type OnCreateUserSubscriptionVariables = {
 export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
-    id?: string | null,
+    id: string,
     name?: string | null,
-    kengenId?: string | null,
+    kengen_id?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1191,9 +1192,9 @@ export type OnUpdateUserSubscriptionVariables = {
 export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
-    id?: string | null,
+    id: string,
     name?: string | null,
-    kengenId?: string | null,
+    kengen_id?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1206,9 +1207,9 @@ export type OnDeleteUserSubscriptionVariables = {
 export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
-    id?: string | null,
+    id: string,
     name?: string | null,
-    kengenId?: string | null,
+    kengen_id?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,

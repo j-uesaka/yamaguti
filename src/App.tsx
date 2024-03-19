@@ -67,7 +67,7 @@ import { AiFillApi } from 'react-icons/ai';
 
 //  Amplify.configure(awsconfig);
 const client = generateClient();
-
+const aaa = 111;
 function App() {
   const [MyReports,setMyReports] = useState<Array<User>>();
   // const [Users,setUsers] =  useState<DataType>();
@@ -75,6 +75,7 @@ function App() {
     const fetchData = async () =>{
       try {
         const result = await client.graphql({query: handler});
+        console.log(result)
         console.log(Array.isArray(result.data.handler))
         
         setMyReports(result.data.handler as Array<User>);

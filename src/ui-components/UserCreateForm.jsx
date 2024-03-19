@@ -25,22 +25,22 @@ export default function UserCreateForm(props) {
   const initialValues = {
     id: "",
     name: "",
-    kengenId: "",
+    kengen_id: "",
   };
   const [id, setId] = React.useState(initialValues.id);
   const [name, setName] = React.useState(initialValues.name);
-  const [kengenId, setKengenId] = React.useState(initialValues.kengenId);
+  const [kengen_id, setKengen_id] = React.useState(initialValues.kengen_id);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setId(initialValues.id);
     setName(initialValues.name);
-    setKengenId(initialValues.kengenId);
+    setKengen_id(initialValues.kengen_id);
     setErrors({});
   };
   const validations = {
     id: [{ type: "Required" }],
     name: [],
-    kengenId: [],
+    kengen_id: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -70,7 +70,7 @@ export default function UserCreateForm(props) {
         let modelFields = {
           id,
           name,
-          kengenId,
+          kengen_id,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -135,7 +135,7 @@ export default function UserCreateForm(props) {
             const modelFields = {
               id: value,
               name,
-              kengenId,
+              kengen_id,
             };
             const result = onChange(modelFields);
             value = result?.id ?? value;
@@ -161,7 +161,7 @@ export default function UserCreateForm(props) {
             const modelFields = {
               id,
               name: value,
-              kengenId,
+              kengen_id,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -180,27 +180,27 @@ export default function UserCreateForm(props) {
         label="Kengen id"
         isRequired={false}
         isReadOnly={false}
-        value={kengenId}
+        value={kengen_id}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               id,
               name,
-              kengenId: value,
+              kengen_id: value,
             };
             const result = onChange(modelFields);
-            value = result?.kengenId ?? value;
+            value = result?.kengen_id ?? value;
           }
-          if (errors.kengenId?.hasError) {
-            runValidationTasks("kengenId", value);
+          if (errors.kengen_id?.hasError) {
+            runValidationTasks("kengen_id", value);
           }
-          setKengenId(value);
+          setKengen_id(value);
         }}
-        onBlur={() => runValidationTasks("kengenId", kengenId)}
-        errorMessage={errors.kengenId?.errorMessage}
-        hasError={errors.kengenId?.hasError}
-        {...getOverrideProps(overrides, "kengenId")}
+        onBlur={() => runValidationTasks("kengen_id", kengen_id)}
+        errorMessage={errors.kengen_id?.errorMessage}
+        hasError={errors.kengen_id?.hasError}
+        {...getOverrideProps(overrides, "kengen_id")}
       ></TextField>
       <Flex
         justifyContent="space-between"

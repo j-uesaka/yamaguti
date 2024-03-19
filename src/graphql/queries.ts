@@ -12,6 +12,9 @@ export const handler = /* GraphQL */ `query Handler {
   handler {
     id
     name
+    kengen_id
+    createdAt
+    updatedAt
     __typename
   }
 }
@@ -204,11 +207,11 @@ export const listReports = /* GraphQL */ `query ListReports(
   APITypes.ListReportsQueryVariables,
   APITypes.ListReportsQuery
 >;
-export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
+export const getUser = /* GraphQL */ `query GetUser($id: String!) {
   getUser(id: $id) {
     id
     name
-    kengenId
+    kengen_id
     createdAt
     updatedAt
     __typename
@@ -216,15 +219,23 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
 }
 ` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
 export const listUsers = /* GraphQL */ `query ListUsers(
+  $id: String
   $filter: ModelUserFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
-  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listUsers(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
     items {
       id
       name
-      kengenId
+      kengen_id
       createdAt
       updatedAt
       __typename

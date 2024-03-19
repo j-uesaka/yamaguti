@@ -222,7 +222,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
   onCreateUser(filter: $filter) {
     id
     name
-    kengenId
+    kengen_id
     createdAt
     updatedAt
     __typename
@@ -236,7 +236,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
   onUpdateUser(filter: $filter) {
     id
     name
-    kengenId
+    kengen_id
     createdAt
     updatedAt
     __typename
@@ -250,7 +250,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
   onDeleteUser(filter: $filter) {
     id
     name
-    kengenId
+    kengen_id
     createdAt
     updatedAt
     __typename

@@ -246,7 +246,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
   createUser(input: $input, condition: $condition) {
     id
     name
-    kengenId
+    kengen_id
     createdAt
     updatedAt
     __typename
@@ -263,7 +263,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
   updateUser(input: $input, condition: $condition) {
     id
     name
-    kengenId
+    kengen_id
     createdAt
     updatedAt
     __typename
@@ -280,7 +280,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   deleteUser(input: $input, condition: $condition) {
     id
     name
-    kengenId
+    kengen_id
     createdAt
     updatedAt
     __typename

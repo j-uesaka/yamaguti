@@ -40,9 +40,14 @@ type Report @model @auth(rules: [{allow: public}]) {
 }
  
  type User @model @auth(rules: [{allow: public}]) {
-	id: String
+	id: String! @primaryKey
 	name: String
-	kengenId: String
+	kengen_id: String
+}
+
+type abc {
+  id: String
+  name: String
 }
 
 type Query {
