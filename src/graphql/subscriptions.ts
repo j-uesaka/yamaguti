@@ -8,255 +8,159 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
-  onCreateComment(filter: $filter) {
-    id
-    commenter_id
-    comment
-    comment_time
-    comment_number
-    created_user_id
-    updated_user_id
-    reportID
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateCommentSubscriptionVariables,
-  APITypes.OnCreateCommentSubscription
->;
-export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
-  onUpdateComment(filter: $filter) {
-    id
-    commenter_id
-    comment
-    comment_time
-    comment_number
-    created_user_id
-    updated_user_id
-    reportID
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateCommentSubscriptionVariables,
-  APITypes.OnUpdateCommentSubscription
->;
-export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
-  onDeleteComment(filter: $filter) {
-    id
-    commenter_id
-    comment
-    comment_time
-    comment_number
-    created_user_id
-    updated_user_id
-    reportID
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteCommentSubscriptionVariables,
-  APITypes.OnDeleteCommentSubscription
->;
-export const onCreateReportMaster = /* GraphQL */ `subscription OnCreateReportMaster(
-  $filter: ModelSubscriptionReportMasterFilterInput
-) {
-  onCreateReportMaster(filter: $filter) {
-    id
-    type1
-    type2
-    template_report_title
-    template_text
-    submission_department_id
-    status
-    created_user_id
-    updated_user_id
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateReportMasterSubscriptionVariables,
-  APITypes.OnCreateReportMasterSubscription
->;
-export const onUpdateReportMaster = /* GraphQL */ `subscription OnUpdateReportMaster(
-  $filter: ModelSubscriptionReportMasterFilterInput
-) {
-  onUpdateReportMaster(filter: $filter) {
-    id
-    type1
-    type2
-    template_report_title
-    template_text
-    submission_department_id
-    status
-    created_user_id
-    updated_user_id
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateReportMasterSubscriptionVariables,
-  APITypes.OnUpdateReportMasterSubscription
->;
-export const onDeleteReportMaster = /* GraphQL */ `subscription OnDeleteReportMaster(
-  $filter: ModelSubscriptionReportMasterFilterInput
-) {
-  onDeleteReportMaster(filter: $filter) {
-    id
-    type1
-    type2
-    template_report_title
-    template_text
-    submission_department_id
-    status
-    created_user_id
-    updated_user_id
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteReportMasterSubscriptionVariables,
-  APITypes.OnDeleteReportMasterSubscription
->;
-export const onCreateReport = /* GraphQL */ `subscription OnCreateReport($filter: ModelSubscriptionReportFilterInput) {
-  onCreateReport(filter: $filter) {
+export const onCreateTReport = /* GraphQL */ `subscription OnCreateTReport($filter: ModelSubscriptionTReportFilterInput) {
+  onCreateTReport(filter: $filter) {
     id
     date
-    type1
-    type2
     report_title
     text
     submission_approver_id
     submission_department_id
-    required_flag
     presenter_id
-    status
+    tReport_status
     attachment
+    hidden_flag
     created_user_id
-    updated_user_id
-    Comments {
-      nextToken
-      __typename
-    }
     createdAt
+    updated_user_id
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateReportSubscriptionVariables,
-  APITypes.OnCreateReportSubscription
+  APITypes.OnCreateTReportSubscriptionVariables,
+  APITypes.OnCreateTReportSubscription
 >;
-export const onUpdateReport = /* GraphQL */ `subscription OnUpdateReport($filter: ModelSubscriptionReportFilterInput) {
-  onUpdateReport(filter: $filter) {
+export const onUpdateTReport = /* GraphQL */ `subscription OnUpdateTReport($filter: ModelSubscriptionTReportFilterInput) {
+  onUpdateTReport(filter: $filter) {
     id
     date
-    type1
-    type2
     report_title
     text
     submission_approver_id
     submission_department_id
-    required_flag
     presenter_id
-    status
+    tReport_status
     attachment
+    hidden_flag
     created_user_id
-    updated_user_id
-    Comments {
-      nextToken
-      __typename
-    }
     createdAt
+    updated_user_id
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateReportSubscriptionVariables,
-  APITypes.OnUpdateReportSubscription
+  APITypes.OnUpdateTReportSubscriptionVariables,
+  APITypes.OnUpdateTReportSubscription
 >;
-export const onDeleteReport = /* GraphQL */ `subscription OnDeleteReport($filter: ModelSubscriptionReportFilterInput) {
-  onDeleteReport(filter: $filter) {
+export const onDeleteTReport = /* GraphQL */ `subscription OnDeleteTReport($filter: ModelSubscriptionTReportFilterInput) {
+  onDeleteTReport(filter: $filter) {
     id
     date
-    type1
-    type2
     report_title
     text
     submission_approver_id
     submission_department_id
-    required_flag
     presenter_id
-    status
+    tReport_status
     attachment
+    hidden_flag
     created_user_id
+    createdAt
     updated_user_id
-    Comments {
-      nextToken
-      __typename
-    }
-    createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteReportSubscriptionVariables,
-  APITypes.OnDeleteReportSubscription
+  APITypes.OnDeleteTReportSubscriptionVariables,
+  APITypes.OnDeleteTReportSubscription
 >;
-export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-  onCreateUser(filter: $filter) {
+export const onCreateMailTo = /* GraphQL */ `subscription OnCreateMailTo($filter: ModelSubscriptionMailToFilterInput) {
+  onCreateMailTo(filter: $filter) {
     id
+    company
+    address
     name
-    kengen_id
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateUserSubscriptionVariables,
-  APITypes.OnCreateUserSubscription
+  APITypes.OnCreateMailToSubscriptionVariables,
+  APITypes.OnCreateMailToSubscription
 >;
-export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-  onUpdateUser(filter: $filter) {
+export const onUpdateMailTo = /* GraphQL */ `subscription OnUpdateMailTo($filter: ModelSubscriptionMailToFilterInput) {
+  onUpdateMailTo(filter: $filter) {
     id
+    company
+    address
     name
-    kengen_id
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateUserSubscriptionVariables,
-  APITypes.OnUpdateUserSubscription
+  APITypes.OnUpdateMailToSubscriptionVariables,
+  APITypes.OnUpdateMailToSubscription
 >;
-export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-  onDeleteUser(filter: $filter) {
+export const onDeleteMailTo = /* GraphQL */ `subscription OnDeleteMailTo($filter: ModelSubscriptionMailToFilterInput) {
+  onDeleteMailTo(filter: $filter) {
     id
+    company
+    address
     name
-    kengen_id
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteUserSubscriptionVariables,
-  APITypes.OnDeleteUserSubscription
+  APITypes.OnDeleteMailToSubscriptionVariables,
+  APITypes.OnDeleteMailToSubscription
+>;
+export const onCreateMailFrom = /* GraphQL */ `subscription OnCreateMailFrom($filter: ModelSubscriptionMailFromFilterInput) {
+  onCreateMailFrom(filter: $filter) {
+    id
+    address
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMailFromSubscriptionVariables,
+  APITypes.OnCreateMailFromSubscription
+>;
+export const onUpdateMailFrom = /* GraphQL */ `subscription OnUpdateMailFrom($filter: ModelSubscriptionMailFromFilterInput) {
+  onUpdateMailFrom(filter: $filter) {
+    id
+    address
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMailFromSubscriptionVariables,
+  APITypes.OnUpdateMailFromSubscription
+>;
+export const onDeleteMailFrom = /* GraphQL */ `subscription OnDeleteMailFrom($filter: ModelSubscriptionMailFromFilterInput) {
+  onDeleteMailFrom(filter: $filter) {
+    id
+    address
+    name
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMailFromSubscriptionVariables,
+  APITypes.OnDeleteMailFromSubscription
 >;

@@ -1,55 +1,34 @@
-type Comment @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  commenter_id: String!
-  comment: String!
-  comment_time: AWSDateTime
-  comment_number: String
-  created_user_id: String!
-  updated_user_id: String!
-  reportID: ID! @index(name: "byReport")
-}
-
-type ReportMaster @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  type1: String!
-  type2: String
-  template_report_title: String
-  template_text: String
-  submission_department_id: ID
-  status: String!
-  created_user_id: String!
-  updated_user_id: String!
-}
-
-type Report @model @auth(rules: [{allow: public}]) {
+type TReport @model @auth(rules: [{ allow: public }]) {
   id: ID!
   date: AWSDate
-  type1: String!
-  type2: String
-  report_title: String
+  report_title: String!
   text: String
   submission_approver_id: [String]
   submission_department_id: String
-  required_flag: String!
   presenter_id: String!
-  status: String!
+  tReport_status: String!
   attachment: [String]
+  hidden_flag: Int!
   created_user_id: String!
+  createdAt: AWSDateTime!
   updated_user_id: String!
-  Comments: [Comment] @hasMany(indexName: "byReport", fields: ["id"])
-}
- 
- type User @model @auth(rules: [{allow: public}]) {
-	id: String! @primaryKey
-	name: String
-	kengen_id: String
+  updatedAt: AWSDateTime!
 }
 
-type abc {
-  id: String
+type MailTo @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  company: String!
+  address: String!
+  name: String
+}
+
+type MailFrom @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  address: String!
   name: String
 }
 
 type Query {
-  handler: [User] @function(name: "dekita")
+  handler(from: String, to: String,head: String,body: String): String
+    @function(name: "mailSender")
 }
