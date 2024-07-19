@@ -199,6 +199,75 @@ export type DeleteMailFromInput = {
   id: string,
 };
 
+export type CreateMailResultInput = {
+  id?: string | null,
+  from: string,
+  company: string,
+  to: string,
+  head?: string | null,
+  body?: string | null,
+  result: string,
+  groupId: string,
+};
+
+export type ModelMailResultConditionInput = {
+  from?: ModelStringInput | null,
+  company?: ModelStringInput | null,
+  to?: ModelStringInput | null,
+  head?: ModelStringInput | null,
+  body?: ModelStringInput | null,
+  result?: ModelStringInput | null,
+  groupId?: ModelIDInput | null,
+  and?: Array< ModelMailResultConditionInput | null > | null,
+  or?: Array< ModelMailResultConditionInput | null > | null,
+  not?: ModelMailResultConditionInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type MailResult = {
+  __typename: "MailResult",
+  id: string,
+  from: string,
+  company: string,
+  to: string,
+  head?: string | null,
+  body?: string | null,
+  result: string,
+  groupId: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateMailResultInput = {
+  id: string,
+  from?: string | null,
+  company?: string | null,
+  to?: string | null,
+  head?: string | null,
+  body?: string | null,
+  result?: string | null,
+  groupId?: string | null,
+};
+
+export type DeleteMailResultInput = {
+  id: string,
+};
+
 export type ModelTReportFilterInput = {
   id?: ModelIDInput | null,
   date?: ModelStringInput | null,
@@ -217,22 +286,6 @@ export type ModelTReportFilterInput = {
   and?: Array< ModelTReportFilterInput | null > | null,
   or?: Array< ModelTReportFilterInput | null > | null,
   not?: ModelTReportFilterInput | null,
-};
-
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
 };
 
 export type ModelTReportConnection = {
@@ -269,6 +322,26 @@ export type ModelMailFromFilterInput = {
 export type ModelMailFromConnection = {
   __typename: "ModelMailFromConnection",
   items:  Array<MailFrom | null >,
+  nextToken?: string | null,
+};
+
+export type ModelMailResultFilterInput = {
+  id?: ModelIDInput | null,
+  from?: ModelStringInput | null,
+  company?: ModelStringInput | null,
+  to?: ModelStringInput | null,
+  head?: ModelStringInput | null,
+  body?: ModelStringInput | null,
+  result?: ModelStringInput | null,
+  groupId?: ModelIDInput | null,
+  and?: Array< ModelMailResultFilterInput | null > | null,
+  or?: Array< ModelMailResultFilterInput | null > | null,
+  not?: ModelMailResultFilterInput | null,
+};
+
+export type ModelMailResultConnection = {
+  __typename: "ModelMailResultConnection",
+  items:  Array<MailResult | null >,
   nextToken?: string | null,
 };
 
@@ -348,6 +421,19 @@ export type ModelSubscriptionMailFromFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMailFromFilterInput | null > | null,
   or?: Array< ModelSubscriptionMailFromFilterInput | null > | null,
+};
+
+export type ModelSubscriptionMailResultFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  from?: ModelSubscriptionStringInput | null,
+  company?: ModelSubscriptionStringInput | null,
+  to?: ModelSubscriptionStringInput | null,
+  head?: ModelSubscriptionStringInput | null,
+  body?: ModelSubscriptionStringInput | null,
+  result?: ModelSubscriptionStringInput | null,
+  groupId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionMailResultFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMailResultFilterInput | null > | null,
 };
 
 export type CreateTReportMutationVariables = {
@@ -524,11 +610,76 @@ export type DeleteMailFromMutation = {
   } | null,
 };
 
+export type CreateMailResultMutationVariables = {
+  input: CreateMailResultInput,
+  condition?: ModelMailResultConditionInput | null,
+};
+
+export type CreateMailResultMutation = {
+  createMailResult?:  {
+    __typename: "MailResult",
+    id: string,
+    from: string,
+    company: string,
+    to: string,
+    head?: string | null,
+    body?: string | null,
+    result: string,
+    groupId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateMailResultMutationVariables = {
+  input: UpdateMailResultInput,
+  condition?: ModelMailResultConditionInput | null,
+};
+
+export type UpdateMailResultMutation = {
+  updateMailResult?:  {
+    __typename: "MailResult",
+    id: string,
+    from: string,
+    company: string,
+    to: string,
+    head?: string | null,
+    body?: string | null,
+    result: string,
+    groupId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteMailResultMutationVariables = {
+  input: DeleteMailResultInput,
+  condition?: ModelMailResultConditionInput | null,
+};
+
+export type DeleteMailResultMutation = {
+  deleteMailResult?:  {
+    __typename: "MailResult",
+    id: string,
+    from: string,
+    company: string,
+    to: string,
+    head?: string | null,
+    body?: string | null,
+    result: string,
+    groupId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type HandlerQueryVariables = {
   from?: string | null,
   to?: string | null,
   head?: string | null,
   body?: string | null,
+  company?: string | null,
+  groupId?: string | null,
 };
 
 export type HandlerQuery = {
@@ -656,6 +807,52 @@ export type ListMailFromsQuery = {
       id: string,
       address: string,
       name?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetMailResultQueryVariables = {
+  id: string,
+};
+
+export type GetMailResultQuery = {
+  getMailResult?:  {
+    __typename: "MailResult",
+    id: string,
+    from: string,
+    company: string,
+    to: string,
+    head?: string | null,
+    body?: string | null,
+    result: string,
+    groupId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListMailResultsQueryVariables = {
+  filter?: ModelMailResultFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMailResultsQuery = {
+  listMailResults?:  {
+    __typename: "ModelMailResultConnection",
+    items:  Array< {
+      __typename: "MailResult",
+      id: string,
+      from: string,
+      company: string,
+      to: string,
+      head?: string | null,
+      body?: string | null,
+      result: string,
+      groupId: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -823,6 +1020,66 @@ export type OnDeleteMailFromSubscription = {
     id: string,
     address: string,
     name?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateMailResultSubscriptionVariables = {
+  filter?: ModelSubscriptionMailResultFilterInput | null,
+};
+
+export type OnCreateMailResultSubscription = {
+  onCreateMailResult?:  {
+    __typename: "MailResult",
+    id: string,
+    from: string,
+    company: string,
+    to: string,
+    head?: string | null,
+    body?: string | null,
+    result: string,
+    groupId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateMailResultSubscriptionVariables = {
+  filter?: ModelSubscriptionMailResultFilterInput | null,
+};
+
+export type OnUpdateMailResultSubscription = {
+  onUpdateMailResult?:  {
+    __typename: "MailResult",
+    id: string,
+    from: string,
+    company: string,
+    to: string,
+    head?: string | null,
+    body?: string | null,
+    result: string,
+    groupId: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteMailResultSubscriptionVariables = {
+  filter?: ModelSubscriptionMailResultFilterInput | null,
+};
+
+export type OnDeleteMailResultSubscription = {
+  onDeleteMailResult?:  {
+    __typename: "MailResult",
+    id: string,
+    from: string,
+    company: string,
+    to: string,
+    head?: string | null,
+    body?: string | null,
+    result: string,
+    groupId: string,
     createdAt: string,
     updatedAt: string,
   } | null,

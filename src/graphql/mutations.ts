@@ -191,3 +191,69 @@ export const deleteMailFrom = /* GraphQL */ `mutation DeleteMailFrom(
   APITypes.DeleteMailFromMutationVariables,
   APITypes.DeleteMailFromMutation
 >;
+export const createMailResult = /* GraphQL */ `mutation CreateMailResult(
+  $input: CreateMailResultInput!
+  $condition: ModelMailResultConditionInput
+) {
+  createMailResult(input: $input, condition: $condition) {
+    id
+    from
+    company
+    to
+    head
+    body
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateMailResultMutationVariables,
+  APITypes.CreateMailResultMutation
+>;
+export const updateMailResult = /* GraphQL */ `mutation UpdateMailResult(
+  $input: UpdateMailResultInput!
+  $condition: ModelMailResultConditionInput
+) {
+  updateMailResult(input: $input, condition: $condition) {
+    id
+    from
+    company
+    to
+    head
+    body
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMailResultMutationVariables,
+  APITypes.UpdateMailResultMutation
+>;
+export const deleteMailResult = /* GraphQL */ `mutation DeleteMailResult(
+  $input: DeleteMailResultInput!
+  $condition: ModelMailResultConditionInput
+) {
+  deleteMailResult(input: $input, condition: $condition) {
+    id
+    from
+    company
+    to
+    head
+    body
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMailResultMutationVariables,
+  APITypes.DeleteMailResultMutation
+>;

@@ -9,6 +9,8 @@ export { default as DashBoard } from "./DashBoard";
 export { default as IngreAndTodo } from "./IngreAndTodo";
 export { default as MailFromCreateForm } from "./MailFromCreateForm";
 export { default as MailFromUpdateForm } from "./MailFromUpdateForm";
+export { default as MailResultCreateForm } from "./MailResultCreateForm";
+export { default as MailResultUpdateForm } from "./MailResultUpdateForm";
 export { default as MailToCreateForm } from "./MailToCreateForm";
 export { default as MailToUpdateForm } from "./MailToUpdateForm";
 export { default as MainMenuCP } from "./MainMenuCP";

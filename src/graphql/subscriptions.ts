@@ -164,3 +164,66 @@ export const onDeleteMailFrom = /* GraphQL */ `subscription OnDeleteMailFrom($fi
   APITypes.OnDeleteMailFromSubscriptionVariables,
   APITypes.OnDeleteMailFromSubscription
 >;
+export const onCreateMailResult = /* GraphQL */ `subscription OnCreateMailResult(
+  $filter: ModelSubscriptionMailResultFilterInput
+) {
+  onCreateMailResult(filter: $filter) {
+    id
+    from
+    company
+    to
+    head
+    body
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMailResultSubscriptionVariables,
+  APITypes.OnCreateMailResultSubscription
+>;
+export const onUpdateMailResult = /* GraphQL */ `subscription OnUpdateMailResult(
+  $filter: ModelSubscriptionMailResultFilterInput
+) {
+  onUpdateMailResult(filter: $filter) {
+    id
+    from
+    company
+    to
+    head
+    body
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMailResultSubscriptionVariables,
+  APITypes.OnUpdateMailResultSubscription
+>;
+export const onDeleteMailResult = /* GraphQL */ `subscription OnDeleteMailResult(
+  $filter: ModelSubscriptionMailResultFilterInput
+) {
+  onDeleteMailResult(filter: $filter) {
+    id
+    from
+    company
+    to
+    head
+    body
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMailResultSubscriptionVariables,
+  APITypes.OnDeleteMailResultSubscription
+>;

@@ -8,8 +8,22 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const handler = /* GraphQL */ `query Handler($from: String, $to: String, $head: String, $body: String) {
-  handler(from: $from, to: $to, head: $head, body: $body)
+export const handler = /* GraphQL */ `query Handler(
+  $from: String
+  $to: String
+  $head: String
+  $body: String
+  $company: String
+  $groupId: String
+) {
+  handler(
+    from: $from
+    to: $to
+    head: $head
+    body: $body
+    company: $company
+    groupId: $groupId
+  )
 }
 ` as GeneratedQuery<APITypes.HandlerQueryVariables, APITypes.HandlerQuery>;
 export const getTReport = /* GraphQL */ `query GetTReport($id: ID!) {
@@ -136,4 +150,50 @@ export const listMailFroms = /* GraphQL */ `query ListMailFroms(
 ` as GeneratedQuery<
   APITypes.ListMailFromsQueryVariables,
   APITypes.ListMailFromsQuery
+>;
+export const getMailResult = /* GraphQL */ `query GetMailResult($id: ID!) {
+  getMailResult(id: $id) {
+    id
+    from
+    company
+    to
+    head
+    body
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMailResultQueryVariables,
+  APITypes.GetMailResultQuery
+>;
+export const listMailResults = /* GraphQL */ `query ListMailResults(
+  $filter: ModelMailResultFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMailResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      from
+      company
+      to
+      head
+      body
+      result
+      groupId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMailResultsQueryVariables,
+  APITypes.ListMailResultsQuery
 >;

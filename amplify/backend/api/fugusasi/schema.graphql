@@ -28,7 +28,18 @@ type MailFrom @model @auth(rules: [{ allow: public }]) {
   name: String
 }
 
+type MailResult @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  from: String!
+  company: String!
+  to: String!
+  head: String
+  body: String
+  result: String!
+  groupId: ID!
+}
+
 type Query {
-  handler(from: String, to: String,head: String,body: String): String
+  handler(from: String, to: String,head: String,body: String,company: String,groupId: String): String
     @function(name: "mailSender")
 }
