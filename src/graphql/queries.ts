@@ -14,6 +14,7 @@ export const handler = /* GraphQL */ `query Handler(
   $head: String
   $body: String
   $company: String
+  $name: String
   $groupId: String
 ) {
   handler(
@@ -22,6 +23,7 @@ export const handler = /* GraphQL */ `query Handler(
     head: $head
     body: $body
     company: $company
+    name: $name
     groupId: $groupId
   )
 }
@@ -151,14 +153,55 @@ export const listMailFroms = /* GraphQL */ `query ListMailFroms(
   APITypes.ListMailFromsQueryVariables,
   APITypes.ListMailFromsQuery
 >;
-export const getMailResult = /* GraphQL */ `query GetMailResult($id: ID!) {
-  getMailResult(id: $id) {
+export const getMailResultList = /* GraphQL */ `query GetMailResultList($id: ID!) {
+  getMailResultList(id: $id) {
+    id
+    companyNames
+    from
+    subject
+    result
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMailResultListQueryVariables,
+  APITypes.GetMailResultListQuery
+>;
+export const listMailResultLists = /* GraphQL */ `query ListMailResultLists(
+  $filter: ModelMailResultListFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMailResultLists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      companyNames
+      from
+      subject
+      result
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMailResultListsQueryVariables,
+  APITypes.ListMailResultListsQuery
+>;
+export const getMailResultDetail = /* GraphQL */ `query GetMailResultDetail($id: ID!) {
+  getMailResultDetail(id: $id) {
     id
     from
     company
     to
     head
     body
+    name
     result
     groupId
     createdAt
@@ -167,15 +210,15 @@ export const getMailResult = /* GraphQL */ `query GetMailResult($id: ID!) {
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetMailResultQueryVariables,
-  APITypes.GetMailResultQuery
+  APITypes.GetMailResultDetailQueryVariables,
+  APITypes.GetMailResultDetailQuery
 >;
-export const listMailResults = /* GraphQL */ `query ListMailResults(
-  $filter: ModelMailResultFilterInput
+export const listMailResultDetails = /* GraphQL */ `query ListMailResultDetails(
+  $filter: ModelMailResultDetailFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listMailResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listMailResultDetails(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       from
@@ -183,6 +226,7 @@ export const listMailResults = /* GraphQL */ `query ListMailResults(
       to
       head
       body
+      name
       result
       groupId
       createdAt
@@ -194,6 +238,6 @@ export const listMailResults = /* GraphQL */ `query ListMailResults(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListMailResultsQueryVariables,
-  APITypes.ListMailResultsQuery
+  APITypes.ListMailResultDetailsQueryVariables,
+  APITypes.ListMailResultDetailsQuery
 >;

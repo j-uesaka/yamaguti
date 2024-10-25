@@ -199,28 +199,71 @@ export type DeleteMailFromInput = {
   id: string,
 };
 
-export type CreateMailResultInput = {
+export type CreateMailResultListInput = {
+  id?: string | null,
+  companyNames: Array< string | null >,
+  from: string,
+  subject: string,
+  result: string,
+};
+
+export type ModelMailResultListConditionInput = {
+  companyNames?: ModelStringInput | null,
+  from?: ModelStringInput | null,
+  subject?: ModelStringInput | null,
+  result?: ModelStringInput | null,
+  and?: Array< ModelMailResultListConditionInput | null > | null,
+  or?: Array< ModelMailResultListConditionInput | null > | null,
+  not?: ModelMailResultListConditionInput | null,
+};
+
+export type MailResultList = {
+  __typename: "MailResultList",
+  id: string,
+  companyNames: Array< string | null >,
+  from: string,
+  subject: string,
+  result: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateMailResultListInput = {
+  id: string,
+  companyNames?: Array< string | null > | null,
+  from?: string | null,
+  subject?: string | null,
+  result?: string | null,
+};
+
+export type DeleteMailResultListInput = {
+  id: string,
+};
+
+export type CreateMailResultDetailInput = {
   id?: string | null,
   from: string,
   company: string,
   to: string,
   head?: string | null,
   body?: string | null,
+  name?: string | null,
   result: string,
   groupId: string,
 };
 
-export type ModelMailResultConditionInput = {
+export type ModelMailResultDetailConditionInput = {
   from?: ModelStringInput | null,
   company?: ModelStringInput | null,
   to?: ModelStringInput | null,
   head?: ModelStringInput | null,
   body?: ModelStringInput | null,
+  name?: ModelStringInput | null,
   result?: ModelStringInput | null,
   groupId?: ModelIDInput | null,
-  and?: Array< ModelMailResultConditionInput | null > | null,
-  or?: Array< ModelMailResultConditionInput | null > | null,
-  not?: ModelMailResultConditionInput | null,
+  and?: Array< ModelMailResultDetailConditionInput | null > | null,
+  or?: Array< ModelMailResultDetailConditionInput | null > | null,
+  not?: ModelMailResultDetailConditionInput | null,
 };
 
 export type ModelIDInput = {
@@ -239,32 +282,34 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type MailResult = {
-  __typename: "MailResult",
+export type MailResultDetail = {
+  __typename: "MailResultDetail",
   id: string,
   from: string,
   company: string,
   to: string,
   head?: string | null,
   body?: string | null,
+  name?: string | null,
   result: string,
   groupId: string,
   createdAt: string,
   updatedAt: string,
 };
 
-export type UpdateMailResultInput = {
+export type UpdateMailResultDetailInput = {
   id: string,
   from?: string | null,
   company?: string | null,
   to?: string | null,
   head?: string | null,
   body?: string | null,
+  name?: string | null,
   result?: string | null,
   groupId?: string | null,
 };
 
-export type DeleteMailResultInput = {
+export type DeleteMailResultDetailInput = {
   id: string,
 };
 
@@ -325,23 +370,41 @@ export type ModelMailFromConnection = {
   nextToken?: string | null,
 };
 
-export type ModelMailResultFilterInput = {
+export type ModelMailResultListFilterInput = {
+  id?: ModelIDInput | null,
+  companyNames?: ModelStringInput | null,
+  from?: ModelStringInput | null,
+  subject?: ModelStringInput | null,
+  result?: ModelStringInput | null,
+  and?: Array< ModelMailResultListFilterInput | null > | null,
+  or?: Array< ModelMailResultListFilterInput | null > | null,
+  not?: ModelMailResultListFilterInput | null,
+};
+
+export type ModelMailResultListConnection = {
+  __typename: "ModelMailResultListConnection",
+  items:  Array<MailResultList | null >,
+  nextToken?: string | null,
+};
+
+export type ModelMailResultDetailFilterInput = {
   id?: ModelIDInput | null,
   from?: ModelStringInput | null,
   company?: ModelStringInput | null,
   to?: ModelStringInput | null,
   head?: ModelStringInput | null,
   body?: ModelStringInput | null,
+  name?: ModelStringInput | null,
   result?: ModelStringInput | null,
   groupId?: ModelIDInput | null,
-  and?: Array< ModelMailResultFilterInput | null > | null,
-  or?: Array< ModelMailResultFilterInput | null > | null,
-  not?: ModelMailResultFilterInput | null,
+  and?: Array< ModelMailResultDetailFilterInput | null > | null,
+  or?: Array< ModelMailResultDetailFilterInput | null > | null,
+  not?: ModelMailResultDetailFilterInput | null,
 };
 
-export type ModelMailResultConnection = {
-  __typename: "ModelMailResultConnection",
-  items:  Array<MailResult | null >,
+export type ModelMailResultDetailConnection = {
+  __typename: "ModelMailResultDetailConnection",
+  items:  Array<MailResultDetail | null >,
   nextToken?: string | null,
 };
 
@@ -423,17 +486,28 @@ export type ModelSubscriptionMailFromFilterInput = {
   or?: Array< ModelSubscriptionMailFromFilterInput | null > | null,
 };
 
-export type ModelSubscriptionMailResultFilterInput = {
+export type ModelSubscriptionMailResultListFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  companyNames?: ModelSubscriptionStringInput | null,
+  from?: ModelSubscriptionStringInput | null,
+  subject?: ModelSubscriptionStringInput | null,
+  result?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMailResultListFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMailResultListFilterInput | null > | null,
+};
+
+export type ModelSubscriptionMailResultDetailFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   from?: ModelSubscriptionStringInput | null,
   company?: ModelSubscriptionStringInput | null,
   to?: ModelSubscriptionStringInput | null,
   head?: ModelSubscriptionStringInput | null,
   body?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
   result?: ModelSubscriptionStringInput | null,
   groupId?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionMailResultFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMailResultFilterInput | null > | null,
+  and?: Array< ModelSubscriptionMailResultDetailFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMailResultDetailFilterInput | null > | null,
 };
 
 export type CreateTReportMutationVariables = {
@@ -610,20 +684,75 @@ export type DeleteMailFromMutation = {
   } | null,
 };
 
-export type CreateMailResultMutationVariables = {
-  input: CreateMailResultInput,
-  condition?: ModelMailResultConditionInput | null,
+export type CreateMailResultListMutationVariables = {
+  input: CreateMailResultListInput,
+  condition?: ModelMailResultListConditionInput | null,
 };
 
-export type CreateMailResultMutation = {
-  createMailResult?:  {
-    __typename: "MailResult",
+export type CreateMailResultListMutation = {
+  createMailResultList?:  {
+    __typename: "MailResultList",
+    id: string,
+    companyNames: Array< string | null >,
+    from: string,
+    subject: string,
+    result: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateMailResultListMutationVariables = {
+  input: UpdateMailResultListInput,
+  condition?: ModelMailResultListConditionInput | null,
+};
+
+export type UpdateMailResultListMutation = {
+  updateMailResultList?:  {
+    __typename: "MailResultList",
+    id: string,
+    companyNames: Array< string | null >,
+    from: string,
+    subject: string,
+    result: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteMailResultListMutationVariables = {
+  input: DeleteMailResultListInput,
+  condition?: ModelMailResultListConditionInput | null,
+};
+
+export type DeleteMailResultListMutation = {
+  deleteMailResultList?:  {
+    __typename: "MailResultList",
+    id: string,
+    companyNames: Array< string | null >,
+    from: string,
+    subject: string,
+    result: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateMailResultDetailMutationVariables = {
+  input: CreateMailResultDetailInput,
+  condition?: ModelMailResultDetailConditionInput | null,
+};
+
+export type CreateMailResultDetailMutation = {
+  createMailResultDetail?:  {
+    __typename: "MailResultDetail",
     id: string,
     from: string,
     company: string,
     to: string,
     head?: string | null,
     body?: string | null,
+    name?: string | null,
     result: string,
     groupId: string,
     createdAt: string,
@@ -631,20 +760,21 @@ export type CreateMailResultMutation = {
   } | null,
 };
 
-export type UpdateMailResultMutationVariables = {
-  input: UpdateMailResultInput,
-  condition?: ModelMailResultConditionInput | null,
+export type UpdateMailResultDetailMutationVariables = {
+  input: UpdateMailResultDetailInput,
+  condition?: ModelMailResultDetailConditionInput | null,
 };
 
-export type UpdateMailResultMutation = {
-  updateMailResult?:  {
-    __typename: "MailResult",
+export type UpdateMailResultDetailMutation = {
+  updateMailResultDetail?:  {
+    __typename: "MailResultDetail",
     id: string,
     from: string,
     company: string,
     to: string,
     head?: string | null,
     body?: string | null,
+    name?: string | null,
     result: string,
     groupId: string,
     createdAt: string,
@@ -652,20 +782,21 @@ export type UpdateMailResultMutation = {
   } | null,
 };
 
-export type DeleteMailResultMutationVariables = {
-  input: DeleteMailResultInput,
-  condition?: ModelMailResultConditionInput | null,
+export type DeleteMailResultDetailMutationVariables = {
+  input: DeleteMailResultDetailInput,
+  condition?: ModelMailResultDetailConditionInput | null,
 };
 
-export type DeleteMailResultMutation = {
-  deleteMailResult?:  {
-    __typename: "MailResult",
+export type DeleteMailResultDetailMutation = {
+  deleteMailResultDetail?:  {
+    __typename: "MailResultDetail",
     id: string,
     from: string,
     company: string,
     to: string,
     head?: string | null,
     body?: string | null,
+    name?: string | null,
     result: string,
     groupId: string,
     createdAt: string,
@@ -679,6 +810,7 @@ export type HandlerQueryVariables = {
   head?: string | null,
   body?: string | null,
   company?: string | null,
+  name?: string | null,
   groupId?: string | null,
 };
 
@@ -814,19 +946,60 @@ export type ListMailFromsQuery = {
   } | null,
 };
 
-export type GetMailResultQueryVariables = {
+export type GetMailResultListQueryVariables = {
   id: string,
 };
 
-export type GetMailResultQuery = {
-  getMailResult?:  {
-    __typename: "MailResult",
+export type GetMailResultListQuery = {
+  getMailResultList?:  {
+    __typename: "MailResultList",
+    id: string,
+    companyNames: Array< string | null >,
+    from: string,
+    subject: string,
+    result: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListMailResultListsQueryVariables = {
+  filter?: ModelMailResultListFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMailResultListsQuery = {
+  listMailResultLists?:  {
+    __typename: "ModelMailResultListConnection",
+    items:  Array< {
+      __typename: "MailResultList",
+      id: string,
+      companyNames: Array< string | null >,
+      from: string,
+      subject: string,
+      result: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetMailResultDetailQueryVariables = {
+  id: string,
+};
+
+export type GetMailResultDetailQuery = {
+  getMailResultDetail?:  {
+    __typename: "MailResultDetail",
     id: string,
     from: string,
     company: string,
     to: string,
     head?: string | null,
     body?: string | null,
+    name?: string | null,
     result: string,
     groupId: string,
     createdAt: string,
@@ -834,23 +1007,24 @@ export type GetMailResultQuery = {
   } | null,
 };
 
-export type ListMailResultsQueryVariables = {
-  filter?: ModelMailResultFilterInput | null,
+export type ListMailResultDetailsQueryVariables = {
+  filter?: ModelMailResultDetailFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListMailResultsQuery = {
-  listMailResults?:  {
-    __typename: "ModelMailResultConnection",
+export type ListMailResultDetailsQuery = {
+  listMailResultDetails?:  {
+    __typename: "ModelMailResultDetailConnection",
     items:  Array< {
-      __typename: "MailResult",
+      __typename: "MailResultDetail",
       id: string,
       from: string,
       company: string,
       to: string,
       head?: string | null,
       body?: string | null,
+      name?: string | null,
       result: string,
       groupId: string,
       createdAt: string,
@@ -1025,19 +1199,71 @@ export type OnDeleteMailFromSubscription = {
   } | null,
 };
 
-export type OnCreateMailResultSubscriptionVariables = {
-  filter?: ModelSubscriptionMailResultFilterInput | null,
+export type OnCreateMailResultListSubscriptionVariables = {
+  filter?: ModelSubscriptionMailResultListFilterInput | null,
 };
 
-export type OnCreateMailResultSubscription = {
-  onCreateMailResult?:  {
-    __typename: "MailResult",
+export type OnCreateMailResultListSubscription = {
+  onCreateMailResultList?:  {
+    __typename: "MailResultList",
+    id: string,
+    companyNames: Array< string | null >,
+    from: string,
+    subject: string,
+    result: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateMailResultListSubscriptionVariables = {
+  filter?: ModelSubscriptionMailResultListFilterInput | null,
+};
+
+export type OnUpdateMailResultListSubscription = {
+  onUpdateMailResultList?:  {
+    __typename: "MailResultList",
+    id: string,
+    companyNames: Array< string | null >,
+    from: string,
+    subject: string,
+    result: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteMailResultListSubscriptionVariables = {
+  filter?: ModelSubscriptionMailResultListFilterInput | null,
+};
+
+export type OnDeleteMailResultListSubscription = {
+  onDeleteMailResultList?:  {
+    __typename: "MailResultList",
+    id: string,
+    companyNames: Array< string | null >,
+    from: string,
+    subject: string,
+    result: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateMailResultDetailSubscriptionVariables = {
+  filter?: ModelSubscriptionMailResultDetailFilterInput | null,
+};
+
+export type OnCreateMailResultDetailSubscription = {
+  onCreateMailResultDetail?:  {
+    __typename: "MailResultDetail",
     id: string,
     from: string,
     company: string,
     to: string,
     head?: string | null,
     body?: string | null,
+    name?: string | null,
     result: string,
     groupId: string,
     createdAt: string,
@@ -1045,19 +1271,20 @@ export type OnCreateMailResultSubscription = {
   } | null,
 };
 
-export type OnUpdateMailResultSubscriptionVariables = {
-  filter?: ModelSubscriptionMailResultFilterInput | null,
+export type OnUpdateMailResultDetailSubscriptionVariables = {
+  filter?: ModelSubscriptionMailResultDetailFilterInput | null,
 };
 
-export type OnUpdateMailResultSubscription = {
-  onUpdateMailResult?:  {
-    __typename: "MailResult",
+export type OnUpdateMailResultDetailSubscription = {
+  onUpdateMailResultDetail?:  {
+    __typename: "MailResultDetail",
     id: string,
     from: string,
     company: string,
     to: string,
     head?: string | null,
     body?: string | null,
+    name?: string | null,
     result: string,
     groupId: string,
     createdAt: string,
@@ -1065,19 +1292,20 @@ export type OnUpdateMailResultSubscription = {
   } | null,
 };
 
-export type OnDeleteMailResultSubscriptionVariables = {
-  filter?: ModelSubscriptionMailResultFilterInput | null,
+export type OnDeleteMailResultDetailSubscriptionVariables = {
+  filter?: ModelSubscriptionMailResultDetailFilterInput | null,
 };
 
-export type OnDeleteMailResultSubscription = {
-  onDeleteMailResult?:  {
-    __typename: "MailResult",
+export type OnDeleteMailResultDetailSubscription = {
+  onDeleteMailResultDetail?:  {
+    __typename: "MailResultDetail",
     id: string,
     from: string,
     company: string,
     to: string,
     head?: string | null,
     body?: string | null,
+    name?: string | null,
     result: string,
     groupId: string,
     createdAt: string,

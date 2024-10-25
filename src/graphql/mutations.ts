@@ -191,61 +191,75 @@ export const deleteMailFrom = /* GraphQL */ `mutation DeleteMailFrom(
   APITypes.DeleteMailFromMutationVariables,
   APITypes.DeleteMailFromMutation
 >;
-export const createMailResult = /* GraphQL */ `mutation CreateMailResult(
-  $input: CreateMailResultInput!
-  $condition: ModelMailResultConditionInput
+export const createMailResultList = /* GraphQL */ `mutation CreateMailResultList(
+  $input: CreateMailResultListInput!
+  $condition: ModelMailResultListConditionInput
 ) {
-  createMailResult(input: $input, condition: $condition) {
+  createMailResultList(input: $input, condition: $condition) {
     id
+    companyNames
     from
-    company
-    to
-    head
-    body
+    subject
     result
-    groupId
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateMailResultMutationVariables,
-  APITypes.CreateMailResultMutation
+  APITypes.CreateMailResultListMutationVariables,
+  APITypes.CreateMailResultListMutation
 >;
-export const updateMailResult = /* GraphQL */ `mutation UpdateMailResult(
-  $input: UpdateMailResultInput!
-  $condition: ModelMailResultConditionInput
+export const updateMailResultList = /* GraphQL */ `mutation UpdateMailResultList(
+  $input: UpdateMailResultListInput!
+  $condition: ModelMailResultListConditionInput
 ) {
-  updateMailResult(input: $input, condition: $condition) {
+  updateMailResultList(input: $input, condition: $condition) {
     id
+    companyNames
     from
-    company
-    to
-    head
-    body
+    subject
     result
-    groupId
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateMailResultMutationVariables,
-  APITypes.UpdateMailResultMutation
+  APITypes.UpdateMailResultListMutationVariables,
+  APITypes.UpdateMailResultListMutation
 >;
-export const deleteMailResult = /* GraphQL */ `mutation DeleteMailResult(
-  $input: DeleteMailResultInput!
-  $condition: ModelMailResultConditionInput
+export const deleteMailResultList = /* GraphQL */ `mutation DeleteMailResultList(
+  $input: DeleteMailResultListInput!
+  $condition: ModelMailResultListConditionInput
 ) {
-  deleteMailResult(input: $input, condition: $condition) {
+  deleteMailResultList(input: $input, condition: $condition) {
+    id
+    companyNames
+    from
+    subject
+    result
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMailResultListMutationVariables,
+  APITypes.DeleteMailResultListMutation
+>;
+export const createMailResultDetail = /* GraphQL */ `mutation CreateMailResultDetail(
+  $input: CreateMailResultDetailInput!
+  $condition: ModelMailResultDetailConditionInput
+) {
+  createMailResultDetail(input: $input, condition: $condition) {
     id
     from
     company
     to
     head
     body
+    name
     result
     groupId
     createdAt
@@ -254,6 +268,52 @@ export const deleteMailResult = /* GraphQL */ `mutation DeleteMailResult(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteMailResultMutationVariables,
-  APITypes.DeleteMailResultMutation
+  APITypes.CreateMailResultDetailMutationVariables,
+  APITypes.CreateMailResultDetailMutation
+>;
+export const updateMailResultDetail = /* GraphQL */ `mutation UpdateMailResultDetail(
+  $input: UpdateMailResultDetailInput!
+  $condition: ModelMailResultDetailConditionInput
+) {
+  updateMailResultDetail(input: $input, condition: $condition) {
+    id
+    from
+    company
+    to
+    head
+    body
+    name
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMailResultDetailMutationVariables,
+  APITypes.UpdateMailResultDetailMutation
+>;
+export const deleteMailResultDetail = /* GraphQL */ `mutation DeleteMailResultDetail(
+  $input: DeleteMailResultDetailInput!
+  $condition: ModelMailResultDetailConditionInput
+) {
+  deleteMailResultDetail(input: $input, condition: $condition) {
+    id
+    from
+    company
+    to
+    head
+    body
+    name
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMailResultDetailMutationVariables,
+  APITypes.DeleteMailResultDetailMutation
 >;

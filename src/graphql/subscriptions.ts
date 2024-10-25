@@ -164,58 +164,71 @@ export const onDeleteMailFrom = /* GraphQL */ `subscription OnDeleteMailFrom($fi
   APITypes.OnDeleteMailFromSubscriptionVariables,
   APITypes.OnDeleteMailFromSubscription
 >;
-export const onCreateMailResult = /* GraphQL */ `subscription OnCreateMailResult(
-  $filter: ModelSubscriptionMailResultFilterInput
+export const onCreateMailResultList = /* GraphQL */ `subscription OnCreateMailResultList(
+  $filter: ModelSubscriptionMailResultListFilterInput
 ) {
-  onCreateMailResult(filter: $filter) {
+  onCreateMailResultList(filter: $filter) {
     id
+    companyNames
     from
-    company
-    to
-    head
-    body
+    subject
     result
-    groupId
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateMailResultSubscriptionVariables,
-  APITypes.OnCreateMailResultSubscription
+  APITypes.OnCreateMailResultListSubscriptionVariables,
+  APITypes.OnCreateMailResultListSubscription
 >;
-export const onUpdateMailResult = /* GraphQL */ `subscription OnUpdateMailResult(
-  $filter: ModelSubscriptionMailResultFilterInput
+export const onUpdateMailResultList = /* GraphQL */ `subscription OnUpdateMailResultList(
+  $filter: ModelSubscriptionMailResultListFilterInput
 ) {
-  onUpdateMailResult(filter: $filter) {
+  onUpdateMailResultList(filter: $filter) {
     id
+    companyNames
     from
-    company
-    to
-    head
-    body
+    subject
     result
-    groupId
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateMailResultSubscriptionVariables,
-  APITypes.OnUpdateMailResultSubscription
+  APITypes.OnUpdateMailResultListSubscriptionVariables,
+  APITypes.OnUpdateMailResultListSubscription
 >;
-export const onDeleteMailResult = /* GraphQL */ `subscription OnDeleteMailResult(
-  $filter: ModelSubscriptionMailResultFilterInput
+export const onDeleteMailResultList = /* GraphQL */ `subscription OnDeleteMailResultList(
+  $filter: ModelSubscriptionMailResultListFilterInput
 ) {
-  onDeleteMailResult(filter: $filter) {
+  onDeleteMailResultList(filter: $filter) {
+    id
+    companyNames
+    from
+    subject
+    result
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMailResultListSubscriptionVariables,
+  APITypes.OnDeleteMailResultListSubscription
+>;
+export const onCreateMailResultDetail = /* GraphQL */ `subscription OnCreateMailResultDetail(
+  $filter: ModelSubscriptionMailResultDetailFilterInput
+) {
+  onCreateMailResultDetail(filter: $filter) {
     id
     from
     company
     to
     head
     body
+    name
     result
     groupId
     createdAt
@@ -224,6 +237,50 @@ export const onDeleteMailResult = /* GraphQL */ `subscription OnDeleteMailResult
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteMailResultSubscriptionVariables,
-  APITypes.OnDeleteMailResultSubscription
+  APITypes.OnCreateMailResultDetailSubscriptionVariables,
+  APITypes.OnCreateMailResultDetailSubscription
+>;
+export const onUpdateMailResultDetail = /* GraphQL */ `subscription OnUpdateMailResultDetail(
+  $filter: ModelSubscriptionMailResultDetailFilterInput
+) {
+  onUpdateMailResultDetail(filter: $filter) {
+    id
+    from
+    company
+    to
+    head
+    body
+    name
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMailResultDetailSubscriptionVariables,
+  APITypes.OnUpdateMailResultDetailSubscription
+>;
+export const onDeleteMailResultDetail = /* GraphQL */ `subscription OnDeleteMailResultDetail(
+  $filter: ModelSubscriptionMailResultDetailFilterInput
+) {
+  onDeleteMailResultDetail(filter: $filter) {
+    id
+    from
+    company
+    to
+    head
+    body
+    name
+    result
+    groupId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMailResultDetailSubscriptionVariables,
+  APITypes.OnDeleteMailResultDetailSubscription
 >;

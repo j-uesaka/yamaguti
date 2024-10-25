@@ -5,6 +5,7 @@ import '@aws-amplify/ui-react/styles.css';
 import { MailTo } from "../API";
 import { handler, listMailTos } from "../graphql/queries";
 import { Link } from "react-router-dom";
+import { createMailResultList } from "../graphql/mutations";
 
 //Main-menuでは定義できなかったためMainMenuに変更
 const MailMain = () => {
@@ -15,7 +16,7 @@ const MailMain = () => {
   const [inputFrom, setInputFrom] = useState("")
   // const [inputTo] = useState<Array<string>>([])
   const [inputTo, setInputTo] = useState<Array<string>>([])
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const client = generateClient()
 
   const geter = async () => {
@@ -25,30 +26,48 @@ const MailMain = () => {
 
   const sendMail = async () => {
     setLoading(true);
-    // let results = []
+    //メール送信結果一覧テーブルへ保存する用
+    let sendResult = "送信成功"
+    let companyNames: Array<string> = []
+    let subject = inputHead;
+    let from = inputFrom
+
     const groupId = crypto.randomUUID();
-    // for (let i = 1; i <= 150; i++) {
-      for (const to of inputTo) {
-        const targetMail = Mail.find((mail) => mail.address === to)
-        const cName = targetMail?.company
-        const name = targetMail?.name
-        const newBody = cName + "\r\n" + name + "　様\r\n" + inputBody
-        const result = (await client.graphql({ query: handler, variables: { to: to, from: inputFrom, head: inputHead, body: newBody, company: cName, groupId: groupId } })).data.handler
-        // console.log(result)
-        // if (result && result.includes("httpStatusCode")) {
-        //   const num = result.indexOf("httpStatusCode")
-        //   const httpResult = result.substring(num + 15, num + 18)
-        //   if (httpResult === "200") {
-        //     results.push(cName + "：テスト" + i + "⇒送信成功\r\n")
-        //   } else {
-        //     results.push(cName + "：テスト" + i + "⇒送信失敗（httpレスポンスが200以外）\r\n")
-        //   }
-        // } else {
-        //   results.push(cName + "：テスト" + i + "⇒送信失敗（httpレスポンス戻らない）\r\n")
-        // }
-    alert("メールを送信しました。\r\n【送信結果】\r\n" + result)
+    for (const to of inputTo) {
+      const targetMail = Mail.find((mail) => mail.address === to)
+      const cName = targetMail?.company
+      const name = targetMail?.name
+      const newBody = cName + "\r\n" + name + "　様\r\n" + inputBody
+      const result = (await client.graphql({ query: handler, variables: { to: to, from: inputFrom, head: inputHead, body: newBody, company: cName, groupId: groupId } })).data.handler
+      companyNames.push(cName as string)
+      if (result && result.includes("httpStatusCode")) {
+        const num = result.indexOf("httpStatusCode")
+        const httpResult = result.substring(num + 15, num + 18)
+        if (httpResult !== "200") {
+          sendResult = "送信失敗"
+        }
+      } else {
+        sendResult = "送信失敗"
       }
-      setLoading(false)
+      console.log(result)
+    }
+    try {
+      await client.graphql({
+        query: createMailResultList, variables: {
+          input: {
+            id: groupId,
+            companyNames: companyNames,
+            subject: subject,
+            from: from,
+            result: sendResult,
+          }
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    alert("メールを送信しました。")
+    setLoading(false)
     // }
     // setResults(results)
   }
@@ -145,6 +164,10 @@ const MailMain = () => {
 
       <View>
         <Link to="/mail/resultList">送信結果一覧へ</Link>
+      </View>
+
+      <View>
+        <Link to="/mail/xlsx">Excel取り込みへ</Link>
       </View>
 
       {/* <View>現在の送信元：</View>
