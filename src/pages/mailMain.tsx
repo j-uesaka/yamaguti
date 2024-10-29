@@ -73,28 +73,28 @@ const MailMain = () => {
   }
 
 
-  const setValue = (event: { target: { value: string; }; }) => {
-    let targetValue = event.target.value
-    let sessionValueJSON = sessionStorage.getItem("id")
-    if (!sessionValueJSON) {
-      const newArray = [targetValue]
-      sessionStorage.setItem("id", JSON.stringify(newArray))
-    } else {
-      const sessionValueArray = JSON.parse(sessionValueJSON)
-      if (sessionValueArray.includes(targetValue)) {
-        const targetValueIndex = sessionValueArray.indexOf(targetValue)
-        sessionValueArray.splice(targetValueIndex, 1)
-        if (sessionValueArray.length === 0) {
-          sessionStorage.removeItem("id")
-        } else {
-          sessionStorage.setItem("id", JSON.stringify(sessionValueArray))
-        }
-      } else {
-        sessionValueArray.push(targetValue)
-        sessionStorage.setItem("id", JSON.stringify(sessionValueArray))
-      }
-    }
-  }
+  // const setValue = (event: { target: { value: string; }; }) => {
+  //   let targetValue = event.target.value
+  //   let sessionValueJSON = sessionStorage.getItem("id")
+  //   if (!sessionValueJSON) {
+  //     const newArray = [targetValue]
+  //     sessionStorage.setItem("id", JSON.stringify(newArray))
+  //   } else {
+  //     const sessionValueArray = JSON.parse(sessionValueJSON)
+  //     if (sessionValueArray.includes(targetValue)) {
+  //       const targetValueIndex = sessionValueArray.indexOf(targetValue)
+  //       sessionValueArray.splice(targetValueIndex, 1)
+  //       if (sessionValueArray.length === 0) {
+  //         sessionStorage.removeItem("id")
+  //       } else {
+  //         sessionStorage.setItem("id", JSON.stringify(sessionValueArray))
+  //       }
+  //     } else {
+  //       sessionValueArray.push(targetValue)
+  //       sessionStorage.setItem("id", JSON.stringify(sessionValueArray))
+  //     }
+  //   }
+  // }
 
   window.addEventListener("beforeunload", (event) => {
     event.preventDefault();
